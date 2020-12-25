@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit="addTodo">
+    <form @submit="newTodo">
       <input type="text" v-model="title" name="title">
       <button type="submit">Add</button>
     </form>
@@ -8,6 +8,9 @@
 </template>
 <script>
 import {v4 as uuid} from 'uuid';
+import { mapMutations } from 'vuex';
+
+
 export default {
   name: 'AddTodo',
   data() {
@@ -16,15 +19,17 @@ export default {
     }
   },
   methods: {
-    addTodo(e) {
+    ...mapMutations([ 'addTodo' ]),
+    newTodo(e) {
       e.preventDefault();
       const newTodoObj = {
         id: uuid(),
         title: this.title,
-      }
-      this.$emit('add-todo', newTodoObj);
-      this.title = '';
-    }
+      };
+      this.addTodo(newTodoObj);
+    },
+    
+
   }
 }
 </script>

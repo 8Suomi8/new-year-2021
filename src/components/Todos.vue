@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <h2>My todolist</h2>
-    <ul>
-      <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)"/>
-      </li>
-    </ul>
+  <div class="todo-list">
+    <div v-bind:key="todo.id" v-for="todo in this.$store.state.todos" class="todo-list__item">
+      <Todo v-bind:todo="todo" />
+    </div>
   </div>
 </template>
 <script>
@@ -16,9 +13,23 @@ export default {
     Todo
   },
   props: [
-    "todos"
+    // "todos"
   ]
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+.todo-list{
+  display: flex;
+  flex-wrap: wrap;
+  &__item{
+    width: 32.5%;
+    margin-right: 1.2%;
+    margin-bottom: 1.2%;
+    border: 1px solid #383838;
+    
+    &:nth-child(3n){
+      margin-right: 0;
+    }
+  }
+}
 </style>
