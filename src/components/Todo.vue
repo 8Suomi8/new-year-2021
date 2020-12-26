@@ -16,25 +16,37 @@
         </button>
         <span class="todo__like-count">300</span>
       </div>
-      <button class="todo__edit-btn">
+      <button class="todo__edit-btn" @click="showEditModal = true">
         <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
       </button>
       <button class="todo__delete-btn" @click="deleteTodo(todo.id)">
         <img src="../assets/icons/delete.svg" alt="" class="todo__delete-icon">
       </button>
     </div>
+    <AddTodo v-if="showEditModal" />
   </div>
 </template>
 <script>
 import { mapMutations } from 'vuex';
+import AddTodo from './AddTodo';
+
 
 export default {
   name: 'Todo',
+  components: { 
+    AddTodo,
+  },
   props: [
     "todo"
   ],
+  data() { 
+    return { 
+      showEditModal: false,
+    } 
+  },
+
   methods: {
-    ...mapMutations([ 'deleteTodo' ]),
+    ...mapMutations([ 'deleteTodo', 'showAddModal' ]),
   }
 }
 </script>
@@ -66,7 +78,7 @@ export default {
         height: 1px ; 
         border-radius: 50% ; 
         background-color: #e05c5c66 ; 
-        box-shadow: 0px 0px 30px 25px #e05c5ccc;
+        box-shadow: 0px 0px 30px 25px #e05c5c9e;
       }
 
     }

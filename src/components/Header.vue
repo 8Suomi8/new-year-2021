@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="cards-quantity">
-      <p class="cards-quantity__text">Карточки: <span class="cards-quantity__number">{{this.todosCount}}</span> / 15</p>
+      <p class="cards-quantity__text">Карточки: <span class="cards-quantity__number">{{this.todosCount}}</span> / {{todosMax}}</p>
     </div>
     <div class="share">
       Поделиться: вк, fb
@@ -30,7 +30,8 @@ export default {
   computed: { 
     ...mapGetters([
       'todosCount',
-      'tipsList'
+      'tipsList',
+      'todosMax'
     ]) }
 
 

@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     // todos: null,
+    todosMax: 15,
+    showAddModal: false,
     todos: [
       {
         id: 1,
@@ -54,15 +56,28 @@ export const store = new Vuex.Store({
     },
     tipsList: state => {
       return state.tipsList;
+    },
+    todos: state => {
+      return state.todos;
+    },
+    todosMax: state => {
+      return state.todosMax;
+    },
+    showAddModal: state => {
+      return state.showAddModal;
     }
   },
   mutations: {
     addTodo: (state, newTodoObj) => {
          state.todos = [...state.todos, newTodoObj];
+         state.showAddModal = false;
     },
     deleteTodo(state, todoId) {
       state.todos = state.todos.filter(todo => todo.id !== todoId);
     },
+    showAddForm: (state) => {
+      state.showAddModal = true;
+    }
   },
   actions: {
     

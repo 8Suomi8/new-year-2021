@@ -4,13 +4,13 @@
     <AddCalendar/>
     <Header/>
     <Todos/>
-    <AddTodo/>
+    
   </div>
 </template>
 <script>
 import {store} from './store'
+import {mapGetters} from 'vuex'
 import Todos from './components/Todos';
-import AddTodo from './components/AddTodo';
 import Congrat from './components/Congrat';
 import AddCalendar from './components/AddCalendar';
 import Header from './components/Header';
@@ -21,7 +21,6 @@ export default {
   components: {
     Congrat,
     Todos,
-    AddTodo,
     AddCalendar,
     Header
   },
@@ -30,6 +29,7 @@ export default {
       
     }
   },
+  computed: { ...mapGetters([ 'showAddModal' ]) }
 }
 </script>
 <style>
