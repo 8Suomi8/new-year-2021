@@ -3,9 +3,9 @@
     <div v-bind:key="todo.id" v-for="todo in todos" class="todo-list__item">
       <Todo v-bind:todo="todo" />
     </div>
-    <div class="todo-list__item todo-list__add-btn" v-if="todosCount < todosMax" @click="showAddForm()">
-      <img src="../assets/icons/delete.svg" alt="" class="todo-list__add-icon">
-      <AddTodo v-if="showAddModal" />
+    <div class="todo-list__item todo-list__add-btn" v-if="todosCount < todosMax" @click.self="toggleAddModal">
+      <img src="../assets/icons/delete.svg" alt="" class="todo-list__add-icon" @click.self="toggleAddModal">
+      <AddTodo v-if="showAddModal" :toggleAddModal="toggleAddModal" :showAddModal="showAddModal"/>
     </div>
 
 
@@ -19,6 +19,11 @@ import AddTodo from './AddTodo';
 import Todo from './Todo';
 export default {
   name: 'Todos',
+  data(){
+    return {
+      showAddModal: false,
+    }
+  },
   components: {
     Todo,
     AddTodo
@@ -26,8 +31,16 @@ export default {
   props: [
     // "todos"
   ],
-  computed: { ...mapGetters([ 'todosCount', 'todos', 'todosMax', 'showAddModal' ]) },
-  methods: { ...mapMutations([ 'showAddForm' ]), }
+  computed: { 
+    ...mapGetters([ 'todosCount', 'todos', 'todosMax']) ,
+  },
+  methods: { 
+    ...mapMutations([ 'showAddForm' ]), 
+    toggleAddModal() {
+      this.showAddModal = !this.showAddModal;
+      console.log(this.showAddModal);
+    },
+  }
 
 
 }

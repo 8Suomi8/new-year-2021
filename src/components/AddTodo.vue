@@ -1,57 +1,98 @@
 <template>
   <div class="addTodo">
-    <form @submit="newTodo" class="addTodo__form">
+    <form  class="addTodo__form">
       <div class="addTodo__content">
         <div class="addTodo__header">
           <div class="addTodo__icon-wrapper">
-            <button class="addTodo__tip-select-btn">
-              <img src="../assets/icons/plans.svg" alt="" class="addTodo__icon" />
+            <button type="button" class="addTodo__tip-select-btn" @click="toggleTipPicker">
+              <!-- <img :src="currentTip().img" alt="" class="addTodo__icon" /> -->
+              <img :src="defaultTip.img" alt="" class="addTodo__icon" />
             </button>
           </div>
-          <!-- <span class="addTodo__date">1 zydfhz</span> -->
-          <DatePicker :showDatePicker="showDatePicker" :toggleDatePicker="toggleDatePicker" />
+          <DatePicker v-on-clickaway="away" :showDatePicker="showDatePicker" :toggleDatePicker="toggleDatePicker" :closeDatePicker="closeDatePicker" :setDate="setDate" :not2021='not2021' :date="date" />
         </div>
         <textarea type="text" v-model="title" name="title" class="addTodo__text" />
       </div>
       <div class="addTodo__footer">
-        <button type="submit" class="addTodo__submit-btn">
+        <button type="submit" class="addTodo__submit-btn" @click.stop="newTodo">
           <img src="../assets/icons/check.svg" alt="" class="addTodo__submit-icon" />
         </button>
-        <button class="addTodo__close-btn">
+        <button  type="button" class="addTodo__close-btn"  @click.stop="toggleAddModal">
           <img src="../assets/icons/delete.svg" alt="" class="addTodo__close-icon" />
         </button>
       </div>
     </form>
+    <TipPicker :toggleTipPicker="toggleTipPicker" :showTipPicker="showTipPicker" :setTip="setTip"/>
   </div>
 </template>
 <script>
+import { directive as onClickaway } from 'vue-clickaway';
 import { v4 as uuid } from 'uuid';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import DatePicker from './DatePicker';
+import TipPicker from './TipPicker';
 
 export default {
   name: 'AddTodo',
-  components: { DatePicker },
+  directives: {
+    onClickaway: onClickaway,
+  },
+  components: { 
+    DatePicker, 
+    TipPicker, 
+  },
   data() {
     return {
       title: '',
+      date: new Date('2021-01-01'),
       showDatePicker: false,
+      showTipPicker: false,
+      tip: null,
     };
   },
+  props: ['toggleAddModal'],
   methods: {
+
     ...mapMutations(['addTodo']),
     newTodo(e) {
       e.preventDefault();
       const newTodoObj = {
         id: uuid(),
         title: this.title,
+        date: this.date.toLocaleDateString('ru', { month: 'long', day: 'numeric' }),
+        tip: this.tip,
       };
+      this.toggleAddModal();
       this.addTodo(newTodoObj);
+
     },
     toggleDatePicker() {
       this.showDatePicker = !this.showDatePicker;
-      console.log(this.showDatePicker);
     },
+    closeDatePicker() {
+      this.showDatePicker = false;
+    },
+    toggleTipPicker() {
+      this.showTipPicker = !this.showTipPicker;
+      console.log(this.showTipPicker);
+    },
+    setDate(newDate) {
+      this.date = new Date(newDate);
+    },
+    not2021(date) {
+      return date.getFullYear() !== 2021;
+    },
+    away: function() {
+      this.closeDatePicker();
+    },
+    setTip(tipId){
+      console.log(tipId);
+      this.tip = tipId;
+      this.toggleTipPicker();
+    }
+  },
+  computed: { 
+  ...mapGetters([ 'currentTip', 'tipsList', 'todo', 'defaultTip' ]),  
   },
 };
 </script>
@@ -104,10 +145,6 @@ export default {
       background-color: #e05c5c66;
       box-shadow: 0px 0px 30px 25px #e05c5c9e;
     }
-  }
-  &__date {
-    color: #e05c5c;
-    font-size: 55px;
   }
   &__text {
     height: 170px;

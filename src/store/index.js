@@ -12,43 +12,43 @@ export const store = new Vuex.Store({
       {
         id: 1,
         title: 'Встретить новый год',
-        type: 'Событие',
+        tip: 'event',
         date: '1 января'
       },
       {
         id: 2,
         title: 'Отправиться в путешествие по Европе. Побывать в самых интересных исторических местах, купить сувениры на память. Попробовать путешествовать на машине. Провести несколько дней на природе на берегу озера. ',
-        type: 'Важная дата',
+        tip: 'bigDate',
         date: '28 мая',
       },
     ],
     tipsList: [
         {
-          id: 1,
+          id: 'event',
           text: 'Событие',
           img: require('@/assets/icons/event.svg'),
         },
         {
-          id: 2,
+          id: 'bigDate',
           text: 'Важная дата',
           img: require('@/assets/icons/date.svg'),
         },
         {
-          id: 3,
+          id: 'dream',
           text: 'Мечта',
           img: require('@/assets/icons/dream.svg'),
         },
         {
-          id: 4,
+          id: 'idea',
           text: 'Идея',
           img: require('@/assets/icons/idea.svg'),
         },
         {
-          id: 5,
+          id: 'plans',
           text: 'Планы',
           img: require('@/assets/icons/plans.svg'),
         },
-      ]
+      ],
   },
   getters: {
     todosCount: state => {
@@ -65,19 +65,30 @@ export const store = new Vuex.Store({
     },
     showAddModal: state => {
       return state.showAddModal;
+    },
+    tipList: state => {
+      return state.tipList;
+    },
+    currentTip: state => (tipID) => {
+      // if(tipID == null)
+      //   return state.tipsList[0];
+      const currentTip = state.tipsList.find(tip => tip.id == tipID);
+      return currentTip;
+    },
+    defaultTip: state => {
+      return state.tipsList[0];
     }
   },
   mutations: {
     addTodo: (state, newTodoObj) => {
-         state.todos = [...state.todos, newTodoObj];
-         state.showAddModal = false;
+      state.todos = [...state.todos, newTodoObj];
     },
     deleteTodo(state, todoId) {
       state.todos = state.todos.filter(todo => todo.id !== todoId);
     },
     showAddForm: (state) => {
       state.showAddModal = true;
-    }
+    },
   },
   actions: {
     

@@ -3,7 +3,7 @@
     <div class="todo__content">
     <div class="todo__header">
       <div class="todo__icon-wrapper">
-        <img src="../assets/icons/plans.svg" alt="" class="todo__icon">
+        <img :src="currentTip(todo.tip).img" alt="" class="todo__icon">
       </div>
       <span class="todo__date">{{todo.date}}</span>
     </div>
@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import AddTodo from './AddTodo';
 
 
@@ -37,7 +37,7 @@ export default {
     AddTodo,
   },
   props: [
-    "todo"
+    "todo",
   ],
   data() { 
     return { 
@@ -47,7 +47,9 @@ export default {
 
   methods: {
     ...mapMutations([ 'deleteTodo', 'showAddModal' ]),
-  }
+  },
+  computed: { 
+    ...mapGetters([ 'currentTip' ]),  },
 }
 </script>
 <style scoped lang="scss">
@@ -85,6 +87,7 @@ export default {
     &__date{
       color: #e05c5c;
       font-size: 55px;
+      width: 100%;
     }
     &__text{
       height: 150px;
