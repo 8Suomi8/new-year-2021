@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import vuejsStorage from 'vuejs-storage'
 
 Vue.use(Vuex);
+Vue.use(vuejsStorage);
 
 export const store = new Vuex.Store({
   state: {
@@ -95,5 +97,8 @@ export const store = new Vuex.Store({
   actions: {
     
   },
+  plugins: [
+    vuejsStorage({ namespace: 'vuex-app' ,keys: ['todos'] }) //call vuejsStorage with options will return a plugin
+  ]
 });
 

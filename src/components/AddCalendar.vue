@@ -27,4 +27,9 @@ export default {
     outline: none;
     cursor: pointer;
   }
+  @media(max-width: 758px){
+    .addCalendar{
+      margin: 20px auto;
+    }
+  }
 </style>

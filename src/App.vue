@@ -15,6 +15,7 @@ import Congrat from './components/Congrat';
 import AddCalendar from './components/AddCalendar';
 import Header from './components/Header';
 
+
 export default {
   name: 'app',
   store,
@@ -23,6 +24,10 @@ export default {
     Todos,
     AddCalendar,
     Header
+  },
+  storage: { //provide options in storage
+    keys: ['todos'],
+    namespace: 'app'
   },
   data() {
     return {

@@ -17,7 +17,7 @@
         <button type="submit" class="addTodo__submit-btn" @click.stop="newTodo">
           <img src="../assets/icons/check.svg" alt="" class="addTodo__submit-icon" />
         </button>
-        <button  type="button" class="addTodo__close-btn"  @click.stop="toggleAddModal">
+        <button  type="button" class="addTodo__close-btn"  @click.stop="closeModal">
           <img src="../assets/icons/delete.svg" alt="" class="addTodo__close-icon" />
         </button>
       </div>
@@ -57,7 +57,7 @@ export default {
     } else {
       return {
         title: this.todo.title,
-        date: this.todo.date,
+        date: new Date(this.todo.date),
         showDatePicker: false,
         showTipPicker: false,
         tip: this.$store.getters.currentTip(this.todo.tip),
@@ -72,7 +72,7 @@ export default {
       const newTodoObj = {
         id: uuid(),
         title: this.title,
-        date: this.date,
+        date: new Date(this.date),
         tip: this.tip.id,
       };
       if(!this.todo) {
@@ -105,6 +105,13 @@ export default {
       const currentTipObject = tipsList.find(tip => tip.id == tipId);
       this.tip = currentTipObject;
       this.toggleTipPicker();
+    },
+    closeModal(){
+      if(!this.todo){
+        this.toggleAddModal();
+      } else {
+        this.toggleEditModal();
+      }
     }
   },
   computed: { 
@@ -206,6 +213,29 @@ export default {
   &__submit-icon {
     width: 35px;
     height: 35px;
+  }
+}
+@media(max-width: 1400px){
+  .addTodo{
+    &__icon-wrapper{
+      margin-right: 15px;
+    }
+    &__text{
+      font-size: 14px;
+    }
+  }
+}
+@media(max-width: 400px){
+  .addTodo{
+    &__header{
+      padding: 20px;
+    }
+    &__text{
+      padding: 0 20px;
+    }
+    &__date{
+      font-size: 28px;
+    }
   }
 }
 </style>

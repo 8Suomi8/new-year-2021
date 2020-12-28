@@ -42,9 +42,11 @@ export default {
   display: flex;
   align-items: center;
   margin: 40px 0;
+  flex-wrap: wrap;
 }
 .tips{
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   border-right: 1px solid #fff;
   &__item{
@@ -82,6 +84,21 @@ export default {
   }
 }
 @media(max-width: 1024px){
-
-}
+    .cards-quantity{
+      order: 1;
+      margin-left: 0;
+      margin-right: 20px;
+    }
+    .share{
+      order: 2;
+    }
+    .tips{
+      width: 100%;
+      border-right: none;
+      margin-bottom: 10px;
+      &__item{
+        margin-bottom: 20px;
+      }
+    }
+  }
 </style>

@@ -5,15 +5,18 @@
     <p class="congrat__text">Перед вами маленький календарик на следующий год. Но это не простой календарь, заносите сюда все ваши мечты, желания и планы, а также знаменательные для вас даты и события.</p>
     <p class="congrat__text">Не забудьте поделиться вашим календарём с друзьями! <br>
     Чтобы сохранить ваши заметки и поделиться ими с друзьями, <a href="" class="congrat__link">авторизуйтесь</a> через сервисы.</p>
-    
+    <VKAuthWidjet />
+
   </div>
 </template>
 <script>
 
+import VKAuthWidjet from './VKAuthWidjet';
+
 export default {
   name: 'Congrat',
-  components: {
-
+  components: { 
+    VKAuthWidjet 
   },
   data() {
     return {
@@ -47,6 +50,28 @@ export default {
     }
     &__link{
        color: #e05c5c;
+    }
+  }
+  @media(max-width: 768px){
+    .congrat{
+      text-align: center;
+      &__title{
+        font-size: 30px;
+      }
+      &__year{
+        font-size: 150px;
+      }
+    }
+  }
+  @media(max-width: 400px){
+    .congrat{
+      &__title{
+        font-size: 24px;
+      }
+      &__year{
+        font-size: 100px;
+        margin-bottom: 30px;
+      }
     }
   }
 </style>

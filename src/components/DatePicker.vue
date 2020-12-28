@@ -12,7 +12,7 @@
       ></date-picker>
     </div>
     <div @click="this.toggleDatePicker" class="datePicker__date">
-      {{ date.toLocaleDateString('ru', { month: 'long', day: 'numeric' }) }}
+      {{ new Date(date).toLocaleDateString('ru', { month: 'long', day: 'numeric' }) }}
       <img src="../assets/icons/calendar.svg" alt="" class="datePicker__icon">
     </div>
   </div>
@@ -66,5 +66,12 @@ export default {
   color: #e05c5c;
   font-size: 55px;
   border: none;
+}
+@media(max-width: 1400px){
+  .datePicker{
+    &__date{
+      font-size: 36px;
+    }
+  }
 }
 </style>

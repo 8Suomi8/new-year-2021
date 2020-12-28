@@ -5,7 +5,7 @@
       <div class="todo__icon-wrapper">
         <img :src="currentTip(todo.tip).img" alt="" class="todo__icon">
       </div>
-      <span class="todo__date">{{todo.date.toLocaleDateString('ru', { month: 'long', day: 'numeric' })}}</span>
+      <span class="todo__date">{{new Date(todo.date).toLocaleDateString('ru', { month: 'long', day: 'numeric' })}}</span>
     </div>
     <p class="todo__text">{{ todo.title }}</p>
     </div>
@@ -56,6 +56,10 @@ export default {
 </script>
 <style scoped lang="scss">
   .todo{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     &__content{
       padding: 35px;
     }
@@ -154,12 +158,26 @@ export default {
 
     }
   }
-@media(max-width: 1280px){
+@media(max-width: 1400px){
   .todo{
     &__text{
       font-size: 14px;
-    }&__date{
+    }
+    &__date{
       font-size: 36px;
+    }
+    &__icon-wrapper{
+      margin-right: 15px;
+    }
+  }
+}
+@media(max-width: 400px){
+  .todo{
+    &__content{
+      padding: 20px;
+    }
+    &__date{
+      font-size: 28px;
     }
   }
 }

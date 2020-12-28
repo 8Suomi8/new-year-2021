@@ -72,4 +72,31 @@ export default {
   }
 }
 
+@media(max-width: 1024px){
+  .todo-list{
+    &__item{
+      width: 49%;
+      margin-right:2%;
+      margin-bottom: 2%;
+      &:nth-child(3n){
+        margin-right: 2%;
+      }
+      &:nth-child(2n){
+        margin-right: 0;
+      }
+    }
+  }
+}
+@media(max-width: 700px){
+  .todo-list{
+    &__item{
+      width: 100%;
+      margin-right: 0;
+      &:nth-child(3n){
+        margin-right: 0;
+      }
+    }
+  }
+}
+
 </style>
