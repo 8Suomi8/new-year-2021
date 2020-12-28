@@ -11,10 +11,10 @@
     </div>
     <div class="todo__footer">
       <div class="todo__like">
-        <button class="todo__like-btn">
-          <img src="../assets/icons/heart.svg" alt="" class="todo__like-icon">
+        <button class="todo__like-btn" @click="toggleLike">
+          <img :src="this.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
         </button>
-        <span class="todo__like-count">300</span>
+        <span class="todo__like-count">{{ todo.likeCount }}</span>
       </div>
       <button class="todo__edit-btn" @click="toggleEditModal">
         <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
@@ -41,13 +41,27 @@ export default {
   data() { 
     return { 
       showEditModal: false,
+      liked: false
     } 
   },
 
   methods: {
-    ...mapMutations([ 'deleteTodo', 'showAddModal' ]),
+    ...mapMutations([ 'deleteTodo', 'editTodo', 'showAddModal', 'addLike', 'deleteLike']),
     toggleEditModal(){
       this.showEditModal = !this.showEditModal
+    },
+    toggleLike(){
+      this.liked = !this.liked
+      console.log(this.todo.likeCount);
+      let newCount = this.liked ? ++this.todo.likeCount : --this.todo.likeCount;
+      const newTodoObj = {
+        id: this.todo.id,
+        title: this.todo.title,
+        date: new Date(this.todo.date),
+        tip: this.todo.tip,
+        likeCount: newCount,
+      };
+     this.editTodo({id:this.todo.id, newTodoObj:newTodoObj});
     },
   },
   computed: { 

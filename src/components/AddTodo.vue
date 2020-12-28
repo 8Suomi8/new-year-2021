@@ -54,6 +54,7 @@ export default {
             img: require('@/assets/icons/event.svg'),
         },
         emptyTextarea: false,
+        likeCount: 0,
       };
     } else {
       return {
@@ -63,6 +64,7 @@ export default {
         showTipPicker: false,
         tip: this.$store.getters.currentTip(this.todo.tip),
         emptyTextarea: false,
+        likeCount: this.todo.likeCount,
       };
     }
   },
@@ -82,6 +84,7 @@ export default {
         title: this.title,
         date: new Date(this.date),
         tip: this.tip.id,
+        likeCount: this.likeCount,
       };
       if(!this.todo) {
         this.toggleAddModal();
