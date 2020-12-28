@@ -11,7 +11,7 @@
           </div>
           <DatePicker v-on-clickaway="away" :showDatePicker="showDatePicker" :toggleDatePicker="toggleDatePicker" :closeDatePicker="closeDatePicker" :setDate="setDate" :not2021='not2021' :date="date" />
         </div>
-        <textarea type="text" v-model="title" name="title" class="addTodo__text" />
+        <textarea type="text" v-model="title" name="title" class="addTodo__text" placeholder="Введите текст" :class="{'addTodo__text_error':emptyTextarea}" />
       </div>
       <div class="addTodo__footer">
         <button type="submit" class="addTodo__submit-btn" @click.stop="newTodo">
@@ -52,7 +52,8 @@ export default {
             id: 'event',
             text: 'Событие',
             img: require('@/assets/icons/event.svg'),
-          },
+        },
+        emptyTextarea: false,
       };
     } else {
       return {
@@ -61,6 +62,7 @@ export default {
         showDatePicker: false,
         showTipPicker: false,
         tip: this.$store.getters.currentTip(this.todo.tip),
+        emptyTextarea: false,
       };
     }
   },
@@ -69,6 +71,12 @@ export default {
     ...mapMutations(['addTodo', 'editTodo']),
     newTodo(e) {
       e.preventDefault();
+      if(this.title == ''){
+        console.log('error');
+        this.emptyTextarea = true;
+        return;
+      }
+      this.emptyTextarea = false;
       const newTodoObj = {
         id: uuid(),
         title: this.title,
@@ -180,6 +188,11 @@ export default {
     border: none;
     color: #fff;
     resize: none;
+    &_error{
+      &::placeholder{
+        color: #c72e2e;
+      }
+    }
   }
   &__footer {
     display: flex;
