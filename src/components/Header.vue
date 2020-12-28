@@ -74,4 +74,14 @@ export default {
 .share{
   margin-left: auto;
 }
+@media(max-width: 1280px){
+  .tips{
+    &__item{
+      margin-right: 30px;
+    }
+  }
+}
+@media(max-width: 1024px){
+
+}
 </style>

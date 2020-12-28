@@ -9,18 +9,18 @@ export const store = new Vuex.Store({
     todosMax: 15,
     showAddModal: false,
     todos: [
-      {
-        id: 1,
-        title: 'Встретить новый год',
-        tip: 'event',
-        date: '1 января'
-      },
-      {
-        id: 2,
-        title: 'Отправиться в путешествие по Европе. Побывать в самых интересных исторических местах, купить сувениры на память. Попробовать путешествовать на машине. Провести несколько дней на природе на берегу озера. ',
-        tip: 'bigDate',
-        date: '28 мая',
-      },
+      // {
+      //   id: 1,
+      //   title: 'Встретить новый год',
+      //   tip: 'event',
+      //   date: new Date('2021-01-01')
+      // },
+      // {
+      //   id: 2,
+      //   title: 'Отправиться в путешествие по Европе. Побывать в самых интересных исторических местах, купить сувениры на память. Попробовать путешествовать на машине. Провести несколько дней на природе на берегу озера. ',
+      //   tip: 'bigDate',
+      //   date: new Date('2021-01-01'),
+      // },
     ],
     tipsList: [
         {
@@ -66,12 +66,9 @@ export const store = new Vuex.Store({
     showAddModal: state => {
       return state.showAddModal;
     },
-    tipList: state => {
-      return state.tipList;
-    },
-    currentTip: state => (tipID) => {
-      // if(tipID == null)
-      //   return state.tipsList[0];
+    currentTip: state => tipID => {
+      if(tipID == null)
+        return state.tipsList[0];
       const currentTip = state.tipsList.find(tip => tip.id == tipID);
       return currentTip;
     },
@@ -81,7 +78,12 @@ export const store = new Vuex.Store({
   },
   mutations: {
     addTodo: (state, newTodoObj) => {
+      // console.log(newTodoObj);
       state.todos = [...state.todos, newTodoObj];
+    },
+    editTodo(state, payload) {
+      let index = state.todos.findIndex(todo => todo.id == payload.id);
+      return [...state.todos.splice(index, 1, payload.newTodoObj)];
     },
     deleteTodo(state, todoId) {
       state.todos = state.todos.filter(todo => todo.id !== todoId);

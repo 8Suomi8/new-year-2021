@@ -7,8 +7,6 @@
       <img src="../assets/icons/delete.svg" alt="" class="todo-list__add-icon" @click.self="toggleAddModal">
       <AddTodo v-if="showAddModal" :toggleAddModal="toggleAddModal" :showAddModal="showAddModal"/>
     </div>
-
-
   </div>
 </template>
 <script>
@@ -38,7 +36,6 @@ export default {
     ...mapMutations([ 'showAddForm' ]), 
     toggleAddModal() {
       this.showAddModal = !this.showAddModal;
-      console.log(this.showAddModal);
     },
   }
 
@@ -74,4 +71,5 @@ export default {
     transform: rotate(45deg);
   }
 }
+
 </style>

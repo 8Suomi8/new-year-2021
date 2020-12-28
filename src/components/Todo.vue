@@ -5,7 +5,7 @@
       <div class="todo__icon-wrapper">
         <img :src="currentTip(todo.tip).img" alt="" class="todo__icon">
       </div>
-      <span class="todo__date">{{todo.date}}</span>
+      <span class="todo__date">{{todo.date.toLocaleDateString('ru', { month: 'long', day: 'numeric' })}}</span>
     </div>
     <p class="todo__text">{{ todo.title }}</p>
     </div>
@@ -16,20 +16,19 @@
         </button>
         <span class="todo__like-count">300</span>
       </div>
-      <button class="todo__edit-btn" @click="showEditModal = true">
+      <button class="todo__edit-btn" @click="toggleEditModal">
         <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
       </button>
       <button class="todo__delete-btn" @click="deleteTodo(todo.id)">
         <img src="../assets/icons/delete.svg" alt="" class="todo__delete-icon">
       </button>
     </div>
-    <AddTodo v-if="showEditModal" />
+    <AddTodo v-if="showEditModal" :todo="todo" :toggleEditModal="toggleEditModal"/>
   </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 import AddTodo from './AddTodo';
-
 
 export default {
   name: 'Todo',
@@ -47,6 +46,9 @@ export default {
 
   methods: {
     ...mapMutations([ 'deleteTodo', 'showAddModal' ]),
+    toggleEditModal(){
+      this.showEditModal = !this.showEditModal
+    },
   },
   computed: { 
     ...mapGetters([ 'currentTip' ]),  },
@@ -152,4 +154,13 @@ export default {
 
     }
   }
+@media(max-width: 1280px){
+  .todo{
+    &__text{
+      font-size: 14px;
+    }&__date{
+      font-size: 36px;
+    }
+  }
+}
 </style>

@@ -6,7 +6,7 @@
           <div class="addTodo__icon-wrapper">
             <button type="button" class="addTodo__tip-select-btn" @click="toggleTipPicker">
               <!-- <img :src="currentTip().img" alt="" class="addTodo__icon" /> -->
-              <img :src="defaultTip.img" alt="" class="addTodo__icon" />
+              <img :src="this.tip.img" alt="" class="addTodo__icon" />
             </button>
           </div>
           <DatePicker v-on-clickaway="away" :showDatePicker="showDatePicker" :toggleDatePicker="toggleDatePicker" :closeDatePicker="closeDatePicker" :setDate="setDate" :not2021='not2021' :date="date" />
@@ -42,29 +42,46 @@ export default {
     TipPicker, 
   },
   data() {
-    return {
-      title: '',
-      date: new Date('2021-01-01'),
-      showDatePicker: false,
-      showTipPicker: false,
-      tip: null,
-    };
+    if(!this.todo) {
+      return {
+        title: '',
+        date: new Date('2021-01-01'),
+        showDatePicker: false,
+        showTipPicker: false,
+        tip: {
+            id: 'event',
+            text: 'Событие',
+            img: require('@/assets/icons/event.svg'),
+          },
+      };
+    } else {
+      return {
+        title: this.todo.title,
+        date: this.todo.date,
+        showDatePicker: false,
+        showTipPicker: false,
+        tip: this.$store.getters.currentTip(this.todo.tip),
+      };
+    }
   },
-  props: ['toggleAddModal'],
+  props: ['toggleAddModal', 'toggleEditModal', 'setTodoData', 'todo'],
   methods: {
-
-    ...mapMutations(['addTodo']),
+    ...mapMutations(['addTodo', 'editTodo']),
     newTodo(e) {
       e.preventDefault();
       const newTodoObj = {
         id: uuid(),
         title: this.title,
-        date: this.date.toLocaleDateString('ru', { month: 'long', day: 'numeric' }),
-        tip: this.tip,
+        date: this.date,
+        tip: this.tip.id,
       };
-      this.toggleAddModal();
-      this.addTodo(newTodoObj);
-
+      if(!this.todo) {
+        this.toggleAddModal();
+        this.addTodo(newTodoObj);
+      } else {
+        this.toggleEditModal();
+        this.editTodo({id: this.todo.id, newTodoObj: newTodoObj});
+      }
     },
     toggleDatePicker() {
       this.showDatePicker = !this.showDatePicker;
@@ -74,7 +91,6 @@ export default {
     },
     toggleTipPicker() {
       this.showTipPicker = !this.showTipPicker;
-      console.log(this.showTipPicker);
     },
     setDate(newDate) {
       this.date = new Date(newDate);
@@ -85,14 +101,14 @@ export default {
     away: function() {
       this.closeDatePicker();
     },
-    setTip(tipId){
-      console.log(tipId);
-      this.tip = tipId;
+    setTip(tipsList, tipId){
+      const currentTipObject = tipsList.find(tip => tip.id == tipId);
+      this.tip = currentTipObject;
       this.toggleTipPicker();
     }
   },
   computed: { 
-  ...mapGetters([ 'currentTip', 'tipsList', 'todo', 'defaultTip' ]),  
+  ...mapGetters([ 'currentTip', 'tipsList', 'defaultTip' ]),  
   },
 };
 </script>

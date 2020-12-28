@@ -5,13 +5,13 @@
         <div class="tipPicker__header">
           <div class="tipPicker__icon-wrapper">
               <!-- <img :src="currentTip().img" alt="" class="tipPicker__icon" /> -->
-              <img :src="defaultTip.img" alt="" class="tipPicker__icon" />
+              <img :src="currentTip().img" alt="" class="tipPicker__icon" />
           </div>
           <!-- <span>{{currentTip().text}}</span> -->
-          <span>{{defaultTip.text}}</span>
+          <span>{{currentTip().text}}</span>
         </div>
         <div class="tipsList">
-          <div v-for="tip in tipsList" v-bind:key="tip.id" class="tipsList__item" @click="setTip(tip.id)">
+          <div v-for="tip in tipsList" v-bind:key="tip.id" class="tipsList__item" @click="setTip(tipsList, tip.id)">
             <img :src="tip.img" alt="" class="tipsList__icon">
             <span class="tipsList__text">{{tip.text}}</span>
           </div>
