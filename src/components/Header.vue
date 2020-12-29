@@ -12,7 +12,7 @@
       <div class="share">
         Поделиться: 
         <vue-goodshare-vkontakte
-          page_url="http://localhost:8081/"
+          :page_url="'http://localhost:8081/?userid=' + user.id"
           title_social=""
           has_icon
         ></vue-goodshare-vkontakte>
@@ -45,13 +45,17 @@ export default {
     ...mapGetters([
       'todosCount',
       'tipsList',
-      'todosMax'
+      'todosMax',
+      'user'
     ]) }
 
 
 }
 </script>
 <style scoped lang="scss">
+.share{
+  margin-left: auto;
+}
 .vkontakte__design__flat{
   background: transparent;
 }
@@ -103,6 +107,9 @@ export default {
       order: 1;
       margin-left: 0;
       margin-right: 20px;
+    }
+    .share{
+      order: 2;
     }
     .tips{
       width: 100%;

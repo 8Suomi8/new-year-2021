@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="authWrapper">
     <div v-if="isAuthorized">
-      <button @click="logout">Выйти</button>
+      <button @click="logout" class="vkAuthBtn">Выйти</button>
     </div>
     <dir v-else>
-      <button @click="vkLogin">vkLogin</button>
-      <button @click="fbLogin">fbLogin</button>
+      <span>Чтобы сохранить ваши заметки и поделиться ими с друзьями, <button @click="vkLogin" class="vkAuthBtn">авторизуйтесь</button> через сеть ВКонтакте.</span>
+      <!-- <button @click="fbLogin">fbLogin</button> -->
     </dir>
   </div>
 </template>
@@ -68,3 +68,19 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .vkAuthBtn{
+    color: #e05c5c;
+    background: transparent;
+    outline: none;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .authWrapper{
+    display: inline-block;
+    span{
+      line-height: 2;
+    }
+  }
+</style>

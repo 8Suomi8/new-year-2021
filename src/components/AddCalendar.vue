@@ -18,7 +18,10 @@ export default {
       if (this.isAuthorized) {
         window.location.href = window.location.origin;
       } else {
-        console.error('Необходима авторизация');
+        this.$notify({
+          group: 'auth',
+          title: 'Необходима авторизация',
+        })
       }
     }
   },

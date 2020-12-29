@@ -2,10 +2,12 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Cookies from 'js-cookie'
 import { format } from 'date-fns'
+import Notifications from 'vue-notification'
 
 import * as Api from '../utils/api.js';
 
 Vue.use(Vuex);
+Vue.use(Notifications)
 
 const initUser = Cookies.get('new_year_2021_user');
 const initAccessToken = Cookies.get('new_year_2021_access_token');
@@ -132,7 +134,10 @@ export const store = new Vuex.Store({
           commit('setLoading', false);
         })
       } else {
-        console.error('Необходима авторизация');
+        Vue.notify({
+          group: 'auth',
+          title: 'Необходима авторизация',
+        })
       }
     },
     editTodo ({ commit, getters, dispatch }, todo) {
@@ -143,7 +148,10 @@ export const store = new Vuex.Store({
           dispatch('getTodos');
         })
       } else {
-        console.error('Необходима авторизация');
+        Vue.notify({
+          group: 'auth',
+          title: 'Необходима авторизация',
+        })
       }
     },
     deleteTodo ({ commit, getters, dispatch }, todoId) {
@@ -153,7 +161,10 @@ export const store = new Vuex.Store({
           dispatch('getTodos');
         })
       } else {
-        console.error('Необходима авторизация');
+        Vue.notify({
+          group: 'auth',
+          title: 'Необходима авторизация',
+        })
       }
     },
     getTodos ({ commit, getters }) {
@@ -172,7 +183,10 @@ export const store = new Vuex.Store({
       }
 
       if (!userId) {
-        console.error('Необходима авторизация');
+        Vue.notify({
+          group: 'auth',
+          title: 'Необходима авторизация',
+        })
       } else {
         commit('setLoading', true);
         return Api.getTodos({
@@ -195,7 +209,10 @@ export const store = new Vuex.Store({
           dispatch('getTodos');
         })
       } else {
-        console.error('Необходима авторизация');
+        Vue.notify({
+          group: 'auth',
+          title: 'Необходима авторизация',
+        })
       }
     },
   }

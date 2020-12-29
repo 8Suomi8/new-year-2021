@@ -56,7 +56,6 @@ export default {
       if (!this.viewedUserId) {
         return;
       }
-
       this.toogleLike(this.todo.id);
     },
   },
