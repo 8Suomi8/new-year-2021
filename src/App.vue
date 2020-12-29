@@ -4,6 +4,7 @@
     <AddCalendar/>
     <Header/>
     <Todos/>
+    <Footer/>
     
   </div>
 </template>
@@ -15,6 +16,7 @@ import Todos from './components/Todos';
 import Congrat from './components/Congrat';
 import AddCalendar from './components/AddCalendar';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 export default {
@@ -24,7 +26,8 @@ export default {
     Congrat,
     Todos,
     AddCalendar,
-    Header
+    Header,
+    Footer
   },
   storage: {
     keys: ['todos'],
