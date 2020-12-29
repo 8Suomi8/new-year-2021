@@ -1,16 +1,13 @@
 <template>
-  <button class="addCalendar">Создать свой календарь</button>
+  <button class="addCalendar" @click="reload">Создать свой календарь</button>
 </template>
 <script>
 export default {
   name: 'AddCalendar',
-  data() {
-    return {
-      title: ''
-    }
-  },
   methods: {
-
+    reload() {
+      window.location.href = window.location.origin;
+    }
   }
 }
 </script>

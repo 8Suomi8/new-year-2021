@@ -1,56 +1,52 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import vuejsStorage from 'vuejs-storage'
+import Cookies from 'js-cookie'
+import { format } from 'date-fns'
+
+import * as Api from '../utils/api.js';
 
 Vue.use(Vuex);
-Vue.use(vuejsStorage);
+
+const initUser = Cookies.get('new_year_2021_user');
+const initAccessToken = Cookies.get('new_year_2021_access_token');
 
 export const store = new Vuex.Store({
   state: {
-    // todos: null,
+    isLoading: false,
+    access_token: typeof initAccessToken != 'undefined' ? initAccessToken : '',
+    user: typeof initUser != 'undefined' ? JSON.parse(initUser) : null,
+    currentUserId: 0,
+
     todosMax: 15,
     showAddModal: false,
-    todos: [
-      // {
-      //   id: 1,
-      //   title: 'Встретить новый год',
-      //   tip: 'event',
-      //   date: new Date('2021-01-01')
-      // },
-      // {
-      //   id: 2,
-      //   title: 'Отправиться в путешествие по Европе. Побывать в самых интересных исторических местах, купить сувениры на память. Попробовать путешествовать на машине. Провести несколько дней на природе на берегу озера. ',
-      //   tip: 'bigDate',
-      //   date: new Date('2021-01-01'),
-      // },
-    ],
+    todos: [],
     tipsList: [
-        {
-          id: 'event',
-          text: 'Событие',
-          img: require('@/assets/icons/event.svg'),
-        },
-        {
-          id: 'bigDate',
-          text: 'Важная дата',
-          img: require('@/assets/icons/date.svg'),
-        },
-        {
-          id: 'dream',
-          text: 'Мечта',
-          img: require('@/assets/icons/dream.svg'),
-        },
-        {
-          id: 'idea',
-          text: 'Идея',
-          img: require('@/assets/icons/idea.svg'),
-        },
-        {
-          id: 'plans',
-          text: 'Планы',
-          img: require('@/assets/icons/plans.svg'),
-        },
-      ],
+      {
+        id: 'event',
+        text: 'Событие',
+        img: require('@/assets/icons/event.svg'),
+      },
+      {
+        id: 'bigDate',
+        text: 'Важная дата',
+        img: require('@/assets/icons/date.svg'),
+      },
+      {
+        id: 'dream',
+        text: 'Мечта',
+        img: require('@/assets/icons/dream.svg'),
+      },
+      {
+        id: 'idea',
+        text: 'Идея',
+        img: require('@/assets/icons/idea.svg'),
+      },
+      {
+        id: 'plans',
+        text: 'Планы',
+        img: require('@/assets/icons/plans.svg'),
+      },
+    ],
   },
   getters: {
     todosCount: state => {
@@ -76,29 +72,100 @@ export const store = new Vuex.Store({
     },
     defaultTip: state => {
       return state.tipsList[0];
-    }
+    },
+    user: state => {
+      return state.user;
+    },
+    currentUserId: state => {
+      return state.currentUserId;
+    },
+    isAuthorized: state => {
+      return state.access_token !='' && state.user.id != 0;
+    },
+    isLoading: state => {
+      return state.isLoading;
+    },
   },
   mutations: {
+    resetTodos: (state) => {
+      state.todos = [];
+    },
     addTodo: (state, newTodoObj) => {
-      // console.log(newTodoObj);
       state.todos = [...state.todos, newTodoObj];
-    },
-    editTodo(state, payload) {
-      let index = state.todos.findIndex(todo => todo.id == payload.id);
-      return [...state.todos.splice(index, 1, payload.newTodoObj)];
-    },
-    deleteTodo(state, todoId) {
-      state.todos = state.todos.filter(todo => todo.id !== todoId);
     },
     showAddForm: (state) => {
       state.showAddModal = true;
     },
+    setLoading: (state, status) => {
+      state.isLoading = status;
+    },
+    setUser: (state, user) => {
+      state.currentUserId = user ? user.id : 0;
+      state.user = user;
+      Cookies.set('new_year_2021_user', JSON.stringify(user));
+    },
+    setCurrentUser: (state, userId) => {
+      state.currentUserId = userId;
+    },
+    setAccessToken: (state, accessToken) => {
+      state.access_token = accessToken;
+      Cookies.set('new_year_2021_access_token', accessToken);
+    },
   },
   actions: {
-    
-  },
-  plugins: [
-    vuejsStorage({ namespace: 'vuex-app' ,keys: ['todos'] }) //call vuejsStorage with options will return a plugin
-  ]
+    addUser ({ commit }, params) {
+      commit('setLoading', true);
+      Api.addUser(params.user).then((result) => {
+        commit('setAccessToken', params.access_token);
+        commit('setUser', result);
+        commit('setLoading', false);
+      })
+    },
+    addTodo ({ commit, getters }, todo) {
+      if (getters.isAuthorized) {
+        todo.date = format(todo.date, 'yyyy-MM-dd')
+        todo.userId = getters.user.id;
+        commit('setLoading', true);
+        Api.addTodo(todo).then((result) => {
+          commit('addTodo', result);
+          commit('setLoading', false);
+        })
+      } else {
+        console.error('Необходима авторизация');
+      }
+    },
+    editTodo ({ commit, getters, dispatch }, todo) {
+      if (getters.isAuthorized) {
+        todo.date = format(todo.date, 'yyyy-MM-dd')
+        commit('setLoading', true);
+        Api.editTodo(todo).then(() => {
+          dispatch('getTodos');
+        })
+      } else {
+        console.error('Необходима авторизация');
+      }
+    },
+    deleteTodo ({ commit, getters, dispatch }, todoId) {
+      if (getters.isAuthorized) {
+        commit('setLoading', true);
+        Api.deleteTodo(todoId).then(() => {
+          dispatch('getTodos');
+        })
+      } else {
+        console.error('Необходима авторизация');
+      }
+    },
+    getTodos ({ commit, getters }) {
+      commit('setLoading', true);
+      return Api.getTodos(getters.currentUserId).then((result) => {
+        commit('resetTodos');
+
+        result.forEach(element => {
+          commit('addTodo', element);
+        });
+        commit('setLoading', false);
+      })
+    }
+  }
 });
 

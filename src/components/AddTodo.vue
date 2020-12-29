@@ -27,8 +27,7 @@
 </template>
 <script>
 import { directive as onClickaway } from 'vue-clickaway';
-import { v4 as uuid } from 'uuid';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import DatePicker from './DatePicker';
 import TipPicker from './TipPicker';
 
@@ -70,28 +69,29 @@ export default {
   },
   props: ['toggleAddModal', 'toggleEditModal', 'setTodoData', 'todo'],
   methods: {
-    ...mapMutations(['addTodo', 'editTodo']),
+    ...mapActions(['addTodo', 'editTodo']),
     newTodo(e) {
       e.preventDefault();
-      if(this.title == ''){
+      if (this.title == '') {
         console.log('error');
         this.emptyTextarea = true;
         return;
       }
       this.emptyTextarea = false;
+      
       const newTodoObj = {
-        id: uuid(),
         title: this.title,
         date: new Date(this.date),
         tip: this.tip.id,
         likeCount: this.likeCount,
       };
+
       if(!this.todo) {
         this.toggleAddModal();
         this.addTodo(newTodoObj);
       } else {
         this.toggleEditModal();
-        this.editTodo({id: this.todo.id, newTodoObj: newTodoObj});
+        this.editTodo(Object.assign({}, this.todo, newTodoObj));
       }
     },
     toggleDatePicker() {

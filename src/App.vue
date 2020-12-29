@@ -9,7 +9,8 @@
 </template>
 <script>
 import {store} from './store'
-import {mapGetters} from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 import Todos from './components/Todos';
 import Congrat from './components/Congrat';
 import AddCalendar from './components/AddCalendar';
@@ -25,16 +26,40 @@ export default {
     AddCalendar,
     Header
   },
-  storage: { //provide options in storage
+  storage: {
     keys: ['todos'],
     namespace: 'app'
   },
   data() {
-    return {
-      
-    }
+    return {}
   },
-  computed: { ...mapGetters([ 'showAddModal' ]) }
+  beforeMount() {
+    const url = new URL(window.location.href);
+    const userId = url.searchParams.get('userid');
+
+    if (userId) {
+      this.setCurrentUser(userId);
+    } else if (this.isAuthorized) {
+      this.setCurrentUser(this.user.id);
+    }
+
+    this.getTodos()
+  },
+  computed: {
+    ...mapGetters([
+      'showAddModal',
+      'isAuthorized',
+      'user'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'setCurrentUser'
+    ]),
+    ...mapActions([
+      'getTodos'
+    ])
+  }
 }
 </script>
 <style>
