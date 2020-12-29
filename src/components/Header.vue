@@ -9,13 +9,24 @@
     <div class="cards-quantity">
       <p class="cards-quantity__text">Карточки: <span class="cards-quantity__number">{{this.todosCount}}</span> / {{todosMax}}</p>
     </div>
-    <div class="share">
-      Поделиться: вк, fb
+      <div class="share">
+        Поделиться: 
+        <vue-goodshare-vkontakte
+          page_url="http://localhost:8081/"
+          title_social=""
+          has_icon
+        ></vue-goodshare-vkontakte>
+
     </div>
   </div>
 </template>
 <script>
+// import Vue from "vue";
+import VueGoodshareVkontakte from "vue-goodshare/src/providers/Vkontakte.vue";
+
+
 import {mapGetters} from 'vuex'
+// import SocialSharing from './SocialSharing';
 
 export default {
   name: 'Header',
@@ -23,6 +34,9 @@ export default {
     return {
       
     }
+  },
+  components: {
+    VueGoodshareVkontakte
   },
   methods: {
 
@@ -38,6 +52,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.vkontakte__design__flat{
+  background: transparent;
+}
 .header{
   display: flex;
   align-items: center;
@@ -73,9 +90,7 @@ export default {
     color: #e05c5c;
   }
 }
-.share{
-  margin-left: auto;
-}
+
 @media(max-width: 1280px){
   .tips{
     &__item{
@@ -88,9 +103,6 @@ export default {
       order: 1;
       margin-left: 0;
       margin-right: 20px;
-    }
-    .share{
-      order: 2;
     }
     .tips{
       width: 100%;
