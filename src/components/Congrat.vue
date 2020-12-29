@@ -1,6 +1,6 @@
 <template>
   <div class="congrat">
-    <p class="congrat__name">Тестов Тест</p>
+    <p class="congrat__name" v-if="isAuthorized"><span>{{user.first_name}} {{user.last_name}}</span></p>
     <h1 class="congrat__title">Мой календарь</h1>
     <p class="congrat__year">2021</p>
     <p class="congrat__text">Перед вами маленький календарик на следующий год. Но это не простой календарь, заносите сюда все ваши мечты, желания и планы, а также знаменательные для вас даты и события.</p>
@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-
+import {mapGetters} from 'vuex'
 import Login from './Login';
 
 export default {
@@ -27,7 +27,12 @@ export default {
   },
   methods: {
 
-  }
+  },
+  computed: { 
+    ...mapGetters([
+      'user',
+      'isAuthorized'
+    ]) }
 }
 </script>
 <style scoped lang="scss">
