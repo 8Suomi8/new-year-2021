@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapGetters, mapActions } from 'vuex';
 import AddTodo from './AddTodo';
 
 export default {
@@ -46,22 +46,13 @@ export default {
   },
 
   methods: {
-    ...mapMutations([ 'deleteTodo', 'editTodo', 'showAddModal', 'addLike', 'deleteLike']),
+    ...mapActions(['deleteTodo']),
+    ...mapMutations(['showAddModal']),
     toggleEditModal(){
       this.showEditModal = !this.showEditModal
     },
-    toggleLike(){
-      this.liked = !this.liked
-      console.log(this.todo.likeCount);
-      let newCount = this.liked ? ++this.todo.likeCount : --this.todo.likeCount;
-      const newTodoObj = {
-        id: this.todo.id,
-        title: this.todo.title,
-        date: new Date(this.todo.date),
-        tip: this.todo.tip,
-        likeCount: newCount,
-      };
-     this.editTodo({id:this.todo.id, newTodoObj:newTodoObj});
+    toggleLike() {
+      
     },
   },
   computed: { 

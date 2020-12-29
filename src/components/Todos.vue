@@ -36,15 +36,7 @@ export default {
     ...mapMutations([ 'showAddForm' ]), 
     toggleAddModal() {
       this.showAddModal = !this.showAddModal;
-    },
-    // addLike(todoId){
-    //   console.log(todoId);
-    //   // todos[todoId].likeCount++;
-    // },
-    // deleteLike(todoId){
-    //   console.log(todoId);
-    //   // todos[todoId].likeCount--;
-    // },
+    }
   }
 
 
