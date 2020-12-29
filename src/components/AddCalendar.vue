@@ -1,14 +1,34 @@
 <template>
-  <button class="addCalendar" @click="reload">Создать свой календарь</button>
+  <button
+    v-if="viewedUserId || !user"
+    class="addCalendar"
+    @click="addCalendar"
+  >
+    Создать свой календарь
+  </button>
 </template>
+
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'AddCalendar',
   methods: {
-    reload() {
-      window.location.href = window.location.origin;
+    addCalendar() {
+      if (this.isAuthorized) {
+        window.location.href = window.location.origin;
+      } else {
+        console.error('Необходима авторизация');
+      }
     }
-  }
+  },
+  computed: {
+    ...mapGetters([
+      'isAuthorized',
+      'viewedUserId',
+      'user'
+    ])
+  },
 }
 </script>
 <style scoped>

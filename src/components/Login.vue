@@ -31,7 +31,8 @@ export default {
     ]),
     ...mapMutations([
       'setUser',
-      'setAccessToken'
+      'setAccessToken',
+      'resetTodos'
     ]),
     fbLogin () {
     },
@@ -61,6 +62,8 @@ export default {
 
       this.setUser(null);
       this.setAccessToken('');
+
+      this.resetTodos();
     }
   }
 }

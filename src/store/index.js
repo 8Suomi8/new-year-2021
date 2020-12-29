@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     isLoading: false,
     access_token: typeof initAccessToken != 'undefined' ? initAccessToken : '',
     user: typeof initUser != 'undefined' ? JSON.parse(initUser) : null,
-    currentUserId: 0,
+    viewedUserId: null,
 
     todosMax: 15,
     showAddModal: false,
@@ -76,8 +76,8 @@ export const store = new Vuex.Store({
     user: state => {
       return state.user;
     },
-    currentUserId: state => {
-      return state.currentUserId;
+    viewedUserId: state => {
+      return state.viewedUserId;
     },
     isAuthorized: state => {
       return state.access_token !='' && state.user.id != 0;
@@ -99,13 +99,12 @@ export const store = new Vuex.Store({
     setLoading: (state, status) => {
       state.isLoading = status;
     },
+    setViewedUserId: (state, userId) => {
+      state.viewedUserId = userId;
+    },
     setUser: (state, user) => {
-      state.currentUserId = user ? user.id : 0;
       state.user = user;
       Cookies.set('new_year_2021_user', JSON.stringify(user));
-    },
-    setCurrentUser: (state, userId) => {
-      state.currentUserId = userId;
     },
     setAccessToken: (state, accessToken) => {
       state.access_token = accessToken;
@@ -113,12 +112,14 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    addUser ({ commit }, params) {
+    addUser ({ commit, dispatch }, params) {
       commit('setLoading', true);
       Api.addUser(params.user).then((result) => {
         commit('setAccessToken', params.access_token);
         commit('setUser', result);
         commit('setLoading', false);
+
+        dispatch('getTodos');
       })
     },
     addTodo ({ commit, getters }, todo) {
@@ -156,16 +157,47 @@ export const store = new Vuex.Store({
       }
     },
     getTodos ({ commit, getters }) {
-      commit('setLoading', true);
-      return Api.getTodos(getters.currentUserId).then((result) => {
-        commit('resetTodos');
+      let userId = null;
+      let currentUserId = null;
 
-        result.forEach(element => {
-          commit('addTodo', element);
-        });
-        commit('setLoading', false);
-      })
-    }
+      if (getters.viewedUserId) {
+        userId = getters.viewedUserId;
+      }
+      
+      if (getters.user && getters.user.id) {
+        currentUserId = getters.user.id;
+        if (!userId) {
+          userId = getters.user.id;
+        }
+      }
+
+      if (!userId) {
+        console.error('Необходима авторизация');
+      } else {
+        commit('setLoading', true);
+        return Api.getTodos({
+          userId: userId,
+          currentUserId: currentUserId,
+        }).then((result) => {
+          commit('resetTodos');
+  
+          result.forEach(element => {
+            commit('addTodo', element);
+          });
+          commit('setLoading', false);
+        })
+      }
+    },
+    toogleLike ({ commit, getters, dispatch }, todoId) {
+      if (getters.isAuthorized) {
+        commit('setLoading', true);
+        Api.toogleLike(getters.user.id, todoId).then(() => {
+          dispatch('getTodos');
+        })
+      } else {
+        console.error('Необходима авторизация');
+      }
+    },
   }
 });
 
