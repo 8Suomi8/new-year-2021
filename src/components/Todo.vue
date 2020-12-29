@@ -12,16 +12,18 @@
     <div class="todo__footer">
       <div class="todo__like">
         <button class="todo__like-btn" @click="toggleLike">
-          <img :src="this.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
+          <img :src="todo.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
         </button>
         <span class="todo__like-count">{{ todo.likeCount }}</span>
       </div>
-      <button class="todo__edit-btn" @click="toggleEditModal">
-        <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
-      </button>
-      <button class="todo__delete-btn" @click="deleteTodo(todo.id)">
-        <img src="../assets/icons/delete.svg" alt="" class="todo__delete-icon">
-      </button>
+      <div v-if="!viewedUserId && user && user.id">
+        <button class="todo__edit-btn" @click="toggleEditModal">
+          <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
+        </button>
+        <button class="todo__delete-btn" @click="deleteTodo(todo.id)">
+          <img src="../assets/icons/delete.svg" alt="" class="todo__delete-icon">
+        </button>
+      </div>
     </div>
     <AddTodo v-if="showEditModal" :todo="todo" :toggleEditModal="toggleEditModal"/>
   </div>
@@ -40,23 +42,26 @@ export default {
   ],
   data() { 
     return { 
-      showEditModal: false,
-      liked: false
+      showEditModal: false
     } 
   },
 
   methods: {
-    ...mapActions(['deleteTodo']),
+    ...mapActions(['deleteTodo', 'toogleLike']),
     ...mapMutations(['showAddModal']),
     toggleEditModal(){
       this.showEditModal = !this.showEditModal
     },
     toggleLike() {
-      
+      if (!this.viewedUserId) {
+        return;
+      }
+
+      this.toogleLike(this.todo.id);
     },
   },
   computed: { 
-    ...mapGetters([ 'currentTip' ]),  },
+    ...mapGetters([ 'currentTip', 'viewedUserId', 'user' ]),  },
 }
 </script>
 <style scoped lang="scss">

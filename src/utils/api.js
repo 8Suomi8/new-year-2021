@@ -34,9 +34,13 @@ function deleteTodo(todoId) {
   return fetchApi('deleteTodo', {todoId: todoId});
 }
 
-function getTodos(userId) {
-  return fetchApi('getTodos', {userId: userId});
+function getTodos(params) {
+  return fetchApi('getTodos', params);
+}
+
+function toogleLike(userId, todoId) {
+  return fetchApi('toogleLike', {userId: userId, todoId: todoId});
 }
 
 
-export {addUser, addTodo, getTodos, deleteTodo, editTodo};
+export {addUser, addTodo, getTodos, deleteTodo, editTodo, toogleLike};

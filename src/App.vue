@@ -38,13 +38,7 @@ export default {
   },
   beforeMount() {
     const url = new URL(window.location.href);
-    const userId = url.searchParams.get('userid');
-
-    if (userId) {
-      this.setCurrentUser(userId);
-    } else if (this.isAuthorized) {
-      this.setCurrentUser(this.user.id);
-    }
+    this.setViewedUserId(url.searchParams.get('userid'));
 
     this.getTodos()
   },
@@ -57,7 +51,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setCurrentUser'
+      'setViewedUserId'
     ]),
     ...mapActions([
       'getTodos'
