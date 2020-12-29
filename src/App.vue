@@ -86,11 +86,12 @@ body{
   padding: 20px;
   margin: 0 5px 5px;
   font-size: 14px;
-  color: #000;
+  color: #fff;
   background: #e05c5c;
   border-left: 5px solid #c02f2f;
   
   .notification-title {
+    font-weight: 100;
     
   }
  

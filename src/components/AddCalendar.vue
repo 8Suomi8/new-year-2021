@@ -1,4 +1,5 @@
 <template>
+<div class="calendarWrapper">
   <button
     v-if="viewedUserId || !user"
     class="addCalendar"
@@ -6,6 +7,7 @@
   >
     Создать свой календарь
   </button>
+</div>
 </template>
 
 <script>
@@ -46,6 +48,9 @@ export default {
     font-weight: 700;
     outline: none;
     cursor: pointer;
+  }
+  .calendarWrapper{
+
   }
   @media(max-width: 758px){
     .addCalendar{

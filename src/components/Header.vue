@@ -9,10 +9,10 @@
     <div class="cards-quantity">
       <p class="cards-quantity__text">Карточки: <span class="cards-quantity__number">{{this.todosCount}}</span> / {{todosMax}}</p>
     </div>
-      <div class="share">
+      <div class="share" v-if="isAuthorized">
         Поделиться: 
         <vue-goodshare-vkontakte
-          :page_url="'http://localhost:8081/?userid=' + user.id"
+          :page_url="'http://2021.supportix.ru/?userid=' + user.id"
           title_social=""
           has_icon
         ></vue-goodshare-vkontakte>
@@ -46,7 +46,8 @@ export default {
       'todosCount',
       'tipsList',
       'todosMax',
-      'user'
+      'user',
+      'isAuthorized'
     ]) }
 
 
