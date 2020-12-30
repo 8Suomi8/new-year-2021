@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
     access_token: typeof initAccessToken != 'undefined' ? initAccessToken : '',
     user: typeof initUser != 'undefined' ? JSON.parse(initUser) : null,
     viewedUserId: null,
+    filterType: null, 
 
     todosMax: 15,
     showAddModal: false,
@@ -87,6 +88,9 @@ export const store = new Vuex.Store({
     isLoading: state => {
       return state.isLoading;
     },
+    filterType: state => {
+      return state.filterType;
+    }
   },
   mutations: {
     resetTodos: (state) => {
@@ -112,6 +116,13 @@ export const store = new Vuex.Store({
       state.access_token = accessToken;
       Cookies.set('new_year_2021_access_token', accessToken);
     },
+    toggleFilterTodos: (state, tipId) => {
+      if (state.filterType == tipId) {
+        state.filterType = null;
+      } else {
+        state.filterType = tipId;
+      }
+    }
   },
   actions: {
     addUser ({ commit, dispatch }, params) {

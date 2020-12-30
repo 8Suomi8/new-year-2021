@@ -88,6 +88,7 @@ body{
   font-size: 14px;
   color: #fff;
   background: #e05c5c;
+  background-color: #e05c5c;
   border-left: 5px solid #c02f2f;
   
   .notification-title {

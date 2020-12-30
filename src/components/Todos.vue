@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list">
-    <div v-bind:key="todo.id" v-for="todo in todos" class="todo-list__item">
+    <div v-bind:key="todo.id" v-for="todo in filteredTodoList" class="todo-list__item">
       <Todo v-bind:todo="todo" />
     </div>
     <div class="todo-list__item todo-list__add-btn" v-if="todosCount < todosMax" @click.self="toggleAddModal">
@@ -30,7 +30,13 @@ export default {
     // "todos"
   ],
   computed: { 
-    ...mapGetters([ 'todosCount', 'todos', 'todosMax']) ,
+    ...mapGetters([ 'todosCount', 'todos', 'todosMax', 'filterType']) ,
+    filteredTodoList: function(){
+      if(!this.filterType) {
+        return this.todos;
+      }
+      return this.todos.filter(({tip}) => tip === this.filterType);
+    }
   },
   methods: { 
     ...mapMutations([ 'showAddForm' ]), 

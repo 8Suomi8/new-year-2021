@@ -31,7 +31,7 @@ export default {
 <style scoped lang="scss">
 .footer{
   background: #000;
-  margin-top: 50px;
+  margin-top: 100px;
   padding: 20px 20px;
   display: flex;
   align-items: baseline;

@@ -137,7 +137,7 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #000;
+  background: #191919;
   &__form {
     height: 100%;
     display: flex;
@@ -225,6 +225,7 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
+    cursor: pointer;
   }
   &__submit-icon {
     width: 35px;

@@ -1,7 +1,7 @@
 <template>
 <div class="calendarWrapper">
   <button
-    v-if="viewedUserId || !user"
+    v-if="viewedUserId"
     class="addCalendar"
     @click="addCalendar"
   >
