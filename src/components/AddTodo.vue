@@ -26,6 +26,8 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+
 import { directive as onClickaway } from 'vue-clickaway';
 import { mapActions, mapGetters } from 'vuex';
 import DatePicker from './DatePicker';
@@ -73,7 +75,12 @@ export default {
     newTodo(e) {
       e.preventDefault();
       if (this.title == '') {
-        console.log('error');
+
+        Vue.notify({
+          group: 'auth',
+          title: 'Добавьте текст',
+        })
+
         this.emptyTextarea = true;
         return;
       }

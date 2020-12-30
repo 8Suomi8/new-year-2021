@@ -1,5 +1,5 @@
 
-const apiUrl = 'http://2021.supportix.ru/server/index.php'
+const apiUrl = 'https://2021.supportix.ru/server/index.php'
 
 
 function fetchApi(method, params) {
