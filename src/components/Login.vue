@@ -41,6 +41,7 @@ export default {
     ]),
     ...mapMutations([
       'setUser',
+      'setTodosUser',
       'setAccessToken',
       'setTodos'
     ]),
@@ -103,6 +104,7 @@ export default {
       }
 
       this.setUser(null);
+      this.setTodosUser(null);
       this.setAccessToken({access_token: ''});
 
       this.setTodos([]);
