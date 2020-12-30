@@ -3,10 +3,10 @@
     <div class="content">
       <Congrat/>
       <AddCalendar/>
+      <button v-if="isShowSave" @click="saveTodo" class="saveCalendar">Сохранить</button>
       <Header/>
       <Todos/>
 
-      <button v-if="isShowSave" @click="saveTodo">Сохранить</button>
     </div>  
     <Footer/>
     <Loader/>
@@ -104,13 +104,25 @@ body{
   padding: 0 20px;
   margin: 0 auto;
 }
+.saveCalendar{
+  background: transparent;
+  display: block;
+  margin: 20px 0 20px auto;
+  border: 1px dotted #fff;
+  color: #e05c5c;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
 .notification {
   padding: 20px;
   margin: 0 5px 5px;
   font-size: 14px;
-  color: #fff;
-  background: #e05c5c;
-  background-color: #e05c5c;
+  color: #e05c5c;
+  background: #fff;
+  background-color: #fff;
   border-left: 5px solid #c02f2f;
   
   .notification-title {

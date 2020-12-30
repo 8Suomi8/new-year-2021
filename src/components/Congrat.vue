@@ -38,7 +38,7 @@ export default {
 </script>
 <style scoped lang="scss">
   .congrat{
-      margin: 50px 0;
+      margin: 100px 0 50px 0;
     &__wrapper{
       margin: 0 auto;
       width: 100%;

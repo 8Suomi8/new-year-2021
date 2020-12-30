@@ -4,7 +4,7 @@
     <div v-bind:key="todo.id" v-for="todo in filteredTodoList" class="todo-list__item">
       <Todo v-bind:todo="todo" />
     </div>
-    <div v-bind:key="1" class="todo-list__item todo-list__add-btn" v-if="mode == 'addition' && todosCount < todosMax" @click.self="toggleAddModal">
+    <div v-bind:key="16" class="todo-list__item todo-list__add-btn" v-if="mode == 'addition' && todosCount < todosMax" @click.self="toggleAddModal">
       <img src="../assets/icons/delete.svg" alt="" class="todo-list__add-icon" @click.self="toggleAddModal">
       <transition name="fade-single">
         <AddTodo v-if="showAddModal" :toggleAddModal="toggleAddModal" :showAddModal="showAddModal"/>
