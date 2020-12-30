@@ -10,13 +10,11 @@
     <p class="todo__text">{{ todo.title }}</p>
     </div>
     <div class="todo__footer">
-      <div class="todo__like">
-        <div v-if="todo.type != 'local'">
-          <button class="todo__like-btn" @click="toggleLike">
-            <img :src="todo.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
-          </button>
-          <span class="todo__like-count">{{ todo.likeCount }}</span>
-        </div>
+      <div v-if="todo.type != 'local'" class="todo__like">
+        <button class="todo__like-btn" @click="toggleLike">
+          <img :src="todo.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
+        </button>
+        <span class="todo__like-count">{{ todo.likeCount }}</span>
       </div>
       <div v-if="mode == 'addition'">
         <button class="todo__edit-btn" @click="toggleEditModal">
