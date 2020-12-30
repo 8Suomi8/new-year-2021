@@ -123,7 +123,6 @@ export default {
       this.closeDatePicker();
     },
     awayTipPicker: function() {
-      console.log(this.showTipPicker);
       this.closeTipPicker();
     },
     setTip(tipsList, tipId){

@@ -5,6 +5,8 @@
       <AddCalendar/>
       <Header/>
       <Todos/>
+
+      <button v-if="isShowSave" @click="saveTodo">Сохранить</button>
     </div>  
     <Footer/>
     <Loader/>
@@ -14,6 +16,7 @@
 <script>
 import {store} from './store'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import Vue from 'vue'
 
 import Todos from './components/Todos';
 import Congrat from './components/Congrat';
@@ -43,24 +46,43 @@ export default {
   },
   beforeMount() {
     const url = new URL(window.location.href);
-    this.setViewedUserId(url.searchParams.get('userid'));
+    const userId = url.searchParams.get('userid');
+    
+    if (userId) {
+      this.setMode('viewing');
+      this.setTodosUser({id: userId});
+    }
 
-    this.getTodos()
+    this.getTodos();
   },
   computed: {
     ...mapGetters([
       'showAddModal',
       'isAuthorized',
-      'user'
-    ])
+      'todos',
+      'mode'
+    ]),
+    isShowSave() {
+      return !this.isAuthorized && this.todos.length > 0 && this.mode == 'addition'
+    }
   },
   methods: {
     ...mapMutations([
-      'setViewedUserId'
+      'setMode',
+      'setTodosUser'
     ]),
     ...mapActions([
+      'loadUser',
       'getTodos'
-    ])
+    ]),
+    saveTodo() {
+      if (!this.isAuthorized) {
+        Vue.notify({
+          group: 'auth',
+          title: 'Необходимо авторизироваться',
+        })
+      }
+    }
   }
 }
 </script>

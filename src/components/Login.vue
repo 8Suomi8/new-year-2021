@@ -40,7 +40,7 @@ export default {
     ...mapMutations([
       'setUser',
       'setAccessToken',
-      'resetTodos'
+      'setTodos'
     ]),
     googleLogin () {
       this.$gAuth
@@ -97,13 +97,13 @@ export default {
       }
 
       if (this.user.type == 'google') {
-        this.$gAuth.signOut();
+        // this.$gAuth.signOut();
       }
 
       this.setUser(null);
       this.setAccessToken({access_token: ''});
 
-      this.resetTodos();
+      this.setTodos([]);
     }
   }
 }

@@ -14,26 +14,26 @@
       <div class="share">
         Поделиться: 
         <vue-goodshare-vkontakte
-          v-if="user"
-          :page_url="'https://2021.supportix.ru/?userid=' + user.id"
+          v-if="todosUser"
+          :page_url="'https://2021.supportix.ru/?userid=' + todosUser.id"
           title_social=""
           has_icon
         ></vue-goodshare-vkontakte>
         <vue-goodshare-vkontakte
-          v-if="!user"
-          page_url="http://2021.supportix.ru/"
+          v-if="!todosUser"
+          page_url="https://2021.supportix.ru/"
           title_social=""
           has_icon
         ></vue-goodshare-vkontakte>
         <vue-goodshare-facebook
-          v-if="user"
-          :page_url="'https://2021.supportix.ru/?userid=' + user.id"
+          v-if="todosUser"
+          :page_url="'https://2021.supportix.ru/?userid=' + todosUser.id"
           title_social=""
           has_icon
         ></vue-goodshare-facebook>
         <vue-goodshare-facebook
-          v-if="!user"
-          page_url="http://2021.supportix.ru/"
+          v-if="!todosUser"
+          page_url="https://2021.supportix.ru/"
           title_social=""
           has_icon
         ></vue-goodshare-facebook>
@@ -69,15 +69,13 @@ export default {
       'todosCount',
       'tipsList',
       'todosMax',
-      'user',
-      'isAuthorized',
-      'filterType',
-      'viewedUserId'
-    ]) }
-
-
+      'todosUser',
+      'filterType'
+    ])
+  }
 }
 </script>
+
 <style scoped lang="scss">
 .share{
   margin-left: auto;

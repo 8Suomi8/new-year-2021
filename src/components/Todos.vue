@@ -3,7 +3,7 @@
     <div v-bind:key="todo.id" v-for="todo in filteredTodoList" class="todo-list__item">
       <Todo v-bind:todo="todo" />
     </div>
-    <div class="todo-list__item todo-list__add-btn" v-if="todosCount < todosMax" @click.self="toggleAddModal">
+    <div class="todo-list__item todo-list__add-btn" v-if="mode == 'addition' && todosCount < todosMax" @click.self="toggleAddModal">
       <img src="../assets/icons/delete.svg" alt="" class="todo-list__add-icon" @click.self="toggleAddModal">
       <AddTodo v-if="showAddModal" :toggleAddModal="toggleAddModal" :showAddModal="showAddModal"/>
     </div>
@@ -26,11 +26,8 @@ export default {
     Todo,
     AddTodo
   },
-  props: [
-    // "todos"
-  ],
   computed: { 
-    ...mapGetters([ 'todosCount', 'todos', 'todosMax', 'filterType']) ,
+    ...mapGetters([ 'todosCount', 'todos', 'todosMax', 'filterType', 'mode']) ,
     filteredTodoList: function(){
       if(!this.filterType) {
         return this.todos;

@@ -1,6 +1,8 @@
 <template>
   <div class="congrat">
-    <p class="congrat__name" v-if="isAuthorized"><span>{{user.first_name}} {{user.last_name}}</span></p>
+    <p class="congrat__name" v-if="todosUser.first_name && todosUser.last_name">
+      <span>{{todosUser.first_name}} {{todosUser.last_name}}</span>
+    </p>
     <h1 class="congrat__title">Мой календарь</h1>
     <p class="congrat__year">2021</p>
     <p class="congrat__text">Перед вами маленький календарик на следующий год. Но это не простой календарь, заносите сюда все ваши мечты, желания и планы, а также знаменательные для вас даты и события.</p>
@@ -30,10 +32,9 @@ export default {
   },
   computed: { 
     ...mapGetters([
-      'user',
-      'isAuthorized',
-      'viewedUserId'
-    ]) }
+      'todosUser'
+    ])
+  }
 }
 </script>
 <style scoped lang="scss">

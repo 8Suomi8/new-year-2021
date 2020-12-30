@@ -1,36 +1,35 @@
 <template>
 <div class="calendarWrapper">
   <button
-    v-if="viewedUserId"
+    v-if="mode == 'viewing'"
     class="addCalendar"
     @click="addCalendar"
   >
-    Создать свой календарь
+    <span v-if="isAuthorized">Мой календарь</span>
+    <span v-else>Создать свой календарь</span>
   </button>
 </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'AddCalendar',
   methods: {
+    ...mapMutations([
+      'setMode',
+      'setTodosUser'
+    ]),
     addCalendar() {
-      if (this.isAuthorized) {
-        window.location.href = window.location.origin;
-      } else {
-        this.$notify({
-          group: 'auth',
-          title: 'Необходима авторизация',
-        })
-      }
+      this.setMode('addition');
+      this.setTodosUser(this.user ? this.user : null);
     }
   },
   computed: {
     ...mapGetters([
       'isAuthorized',
-      'viewedUserId',
+      'mode',
       'user'
     ])
   },
@@ -44,14 +43,16 @@ export default {
     border: 1px dotted #fff;
     color: #e05c5c;
     padding: 15px 40px;
-    font-size: 18px;
-    font-weight: 700;
+    
     outline: none;
     cursor: pointer;
   }
-  .calendarWrapper{
 
+  .addCalendar span {
+    font-size: 18px;
+    font-weight: 700;
   }
+
   @media(max-width: 758px){
     .addCalendar{
       margin: 20px auto;

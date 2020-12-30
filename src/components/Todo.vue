@@ -11,12 +11,14 @@
     </div>
     <div class="todo__footer">
       <div class="todo__like">
-        <button class="todo__like-btn" @click="toggleLike">
-          <img :src="todo.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
-        </button>
-        <span class="todo__like-count">{{ todo.likeCount }}</span>
+        <div v-if="todo.type != 'local'">
+          <button class="todo__like-btn" @click="toggleLike">
+            <img :src="todo.liked ? require('../assets/icons/full-heart.svg') : require('../assets/icons/heart.svg')" alt="" class="todo__like-icon">
+          </button>
+          <span class="todo__like-count">{{ todo.likeCount }}</span>
+        </div>
       </div>
-      <div v-if="!viewedUserId && user && user.id">
+      <div v-if="mode == 'addition'">
         <button class="todo__edit-btn" @click="toggleEditModal">
           <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
         </button>
@@ -53,14 +55,12 @@ export default {
       this.showEditModal = !this.showEditModal
     },
     toggleLike() {
-      if (!this.viewedUserId) {
-        return;
-      }
       this.toogleLike(this.todo.id);
     },
   },
   computed: { 
-    ...mapGetters([ 'currentTip', 'viewedUserId', 'user' ]),  },
+    ...mapGetters([ 'currentTip', 'mode'])
+  },
 }
 </script>
 <style scoped lang="scss">
