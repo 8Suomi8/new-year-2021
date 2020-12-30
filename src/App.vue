@@ -47,10 +47,15 @@ export default {
   beforeMount() {
     const url = new URL(window.location.href);
     const userId = url.searchParams.get('userid');
-    
+
     if (userId) {
-      this.setMode('viewing');
-      this.setTodosUser({id: userId});
+      if (this.user && this.user.id == userId) {
+        this.setTodosUser(this.user);
+        window.history.replaceState(null, null, window.location.pathname);
+      } else {
+        this.setMode('viewing');
+        this.setTodosUser({id: userId});
+      }
     } else if (this.user) {
       this.setTodosUser(this.user);
     }
