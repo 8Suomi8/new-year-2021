@@ -3,13 +3,13 @@
   <div class="tipPicker" v-show="showTipPicker">
     <form class="tipPicker__form">
       <div class="tipPicker__content">
-        <div class="tipPicker__header">
+        <div class="tipPicker__header" @click="this.toggleTipPicker">
           <div class="tipPicker__icon-wrapper">
               <!-- <img :src="currentTip().img" alt="" class="tipPicker__icon" /> -->
-              <img :src="currentTip().img" alt="" class="tipPicker__icon" />
+              <img :src="currentTip(todoTipId).img" alt="" class="tipPicker__icon" />
           </div>
           <!-- <span>{{currentTip().text}}</span> -->
-          <span>{{currentTip().text}}</span>
+          <span>{{currentTip(todoTipId).text}}</span>
         </div>
         <div class="tipsList">
           <div v-for="tip in tipsList" v-bind:key="tip.id" class="tipsList__item" @click="setTip(tipsList, tip.id)">
@@ -32,9 +32,9 @@ export default {
 
     };
   },
-  props: ['showTipPicker', 'toggleTipPicker', 'setTip'],
+  props: ['showTipPicker', 'toggleTipPicker', 'setTip', 'todoTipId'],
   methods: {
-    ...mapMutations([ 'curretnTip' ]),
+    ...mapMutations([ ]),
   },
   computed: { 
     ...mapGetters([ 'currentTip', 'tipsList', 'defaultTip' ]),  

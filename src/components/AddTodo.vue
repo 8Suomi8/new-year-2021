@@ -22,7 +22,7 @@
         </button>
       </div>
     </form>
-    <TipPicker v-on-clickaway="awayTipPicker" :toggleTipPicker="toggleTipPicker" :showTipPicker="showTipPicker" :setTip="setTip"/>
+    <TipPicker v-on-clickaway="awayTipPicker" :toggleTipPicker="toggleTipPicker" :showTipPicker="showTipPicker" :setTip="setTip" v-bind:todoTipId='this.todo.tip'/>
   </div>
 </template>
 <script>
