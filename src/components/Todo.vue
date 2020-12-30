@@ -17,7 +17,7 @@
         <span class="todo__like-count">{{ todo.likeCount }}</span>
       </div>
       <div v-if="mode == 'addition'">
-        <button class="todo__edit-btn" @click="toggleEditModal">
+        <button class="todo__edit-btn" @click="() => showWarningPopup()">
           <img src="../assets/icons/edit.svg" alt="" class="todo__edit-icon">
         </button>
         <button class="todo__delete-btn" @click="deleteTodo(todo.id)">
@@ -28,11 +28,13 @@
     <transition name="fade">
     <AddTodo v-if="showEditModal" :todo="todo" :toggleEditModal="toggleEditModal"/>
     </transition>
+    
   </div>
 </template>
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 import AddTodo from './AddTodo';
+
 
 export default {
   name: 'Todo',
@@ -53,6 +55,27 @@ export default {
     ...mapMutations(['showAddModal']),
     toggleEditModal(){
       this.showEditModal = !this.showEditModal
+    },
+    showWarningPopup(){
+      console.log(111);
+      this.$modal.show('dialog', {
+        title: 'При редактировании все лайки удалятся',
+        buttons: [
+          {
+            title: 'Продолжить',
+            handler: () => {
+              this.toggleEditModal();
+              this.$modal.hide('dialog')
+            }
+          },
+          {
+            title: 'Отменить',
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          },
+        ]
+      })
     },
     toggleLike() {
       this.toogleLike(this.todo.id);
