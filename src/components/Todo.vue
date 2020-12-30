@@ -111,6 +111,7 @@ export default {
       height: 150px;
       font-size: 16px;
       line-height: 1.5;
+      overflow-y: auto;
     }
     &__footer{
       display: flex;
