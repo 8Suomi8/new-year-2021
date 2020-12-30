@@ -51,6 +51,8 @@ export default {
     if (userId) {
       this.setMode('viewing');
       this.setTodosUser({id: userId});
+    } else if (this.user) {
+      this.setTodosUser(this.user);
     }
 
     this.getTodos();
@@ -60,6 +62,7 @@ export default {
       'showAddModal',
       'isAuthorized',
       'todos',
+      'user',
       'mode'
     ]),
     isShowSave() {

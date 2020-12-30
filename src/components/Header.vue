@@ -42,13 +42,11 @@
   </div>
 </template>
 <script>
-// import Vue from "vue";
 import VueGoodshareVkontakte from "vue-goodshare/src/providers/Vkontakte.vue";
 import VueGoodshareFacebook from "vue-goodshare/src/providers/Facebook.vue";
 
 
 import {mapGetters, mapMutations} from 'vuex'
-// import SocialSharing from './SocialSharing';
 
 export default {
   name: 'Header',

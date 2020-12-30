@@ -11,18 +11,25 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'AddCalendar',
   methods: {
     ...mapMutations([
       'setMode',
-      'setTodosUser'
+      'setTodosUser',
+      'setTodos'
+    ]),
+    ...mapActions([
+      'getTodos'
     ]),
     addCalendar() {
+      window.history.replaceState(null, null, window.location.pathname);
+
       this.setMode('addition');
       this.setTodosUser(this.user ? this.user : null);
+      this.getTodos();
     }
   },
   computed: {

@@ -144,21 +144,27 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    addUser ({ commit, dispatch }, params) {
+    addUser ({ commit, getters, dispatch }, params) {
       commit('setLoading', true);
-      Api.addUser(params.user).then((result) => {
-        commit('setUser', result);
-        commit(
-          'setAccessToken',
-          {
-            access_token: params.access_token,
-            expires     : params.expire
-          }
-        );
-        commit('setLoading', false);
+      Api.addUser(params.user)
+        .then((result) => {
+          commit('setUser', result);
 
-        dispatch('getTodos');
-      })
+          if (getters.mode == 'addition') {
+            commit('setTodosUser', result);
+          }
+
+          commit(
+            'setAccessToken',
+            {
+              access_token: params.access_token,
+              expires     : params.expire
+            }
+          );
+          commit('setLoading', false);
+        })
+        .then(() => dispatch('saveTodos'))
+        .then(() => dispatch('getTodos'))
     },
     addTodo ({ commit, getters }, todo) {
       todo.date = format(todo.date, 'yyyy-MM-dd');
@@ -215,7 +221,6 @@ export const store = new Vuex.Store({
         commit('setLoading', true);
         return Api.getTodos({userId: getters.todosUser.id})
           .then((result) => {
-            console.log(result);
             commit('setTodos', result['todos']);
             commit('setTodosUser', result['user']);
 
@@ -226,6 +231,20 @@ export const store = new Vuex.Store({
         if (localTodosString) {
           commit('setTodos', JSON.parse(localTodosString));
         }
+      }
+    },
+    saveTodos ({ commit, getters }) {
+      const localTodosString = localStorage.getItem('new_year_2021_todos');
+
+      if (localTodosString) {
+        commit('setLoading', true);
+        return Api.saveTodos({
+          userId: getters.user.id,
+          todos : localTodosString
+        }).then(() => {
+          localStorage.setItem('new_year_2021_todos', '');
+          commit('setLoading', false);
+        })
       }
     },
     toogleLike ({ commit, dispatch }, todoId) {
