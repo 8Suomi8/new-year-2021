@@ -187,29 +187,31 @@ body{
   opacity: 0;
   transform: translateX(-30px);
 }
-.vue-dialog{
-  background: #191919;
-  padding: 30px;
-}
-.vm--modal{
-  box-shadow: 0 20px 60px 0px rgba(0, 0, 0, .4);
-}
-.vue-dialog-content-title{
-  font-weight: 100;
-  text-align: center;
-}
-.vue-dialog-buttons{
-  border-top: 0;
-}
-.vue-dialog-button:not(:first-of-type){
-  margin-left: 20px;
-  border-left: 1px dotted #fff;
-}
-.vue-dialog-button{
-  border: 1px dotted #fff;
-  color: #e05c5c;
-  &:hover {
-    background:#191919;
+#app{
+  .vue-dialog{
+    background: #191919;
+    padding: 30px;
+  }
+  .vm--modal{
+    box-shadow: 0 20px 60px 0px rgba(0, 0, 0, .4);
+  }
+  .vue-dialog-content-title{
+    font-weight: 100;
+    text-align: center;
+  }
+  .vue-dialog-buttons{
+    border-top: 0;
+  }
+  .vue-dialog-button:not(:first-of-type){
+    margin-left: 20px;
+    border-left: 1px dotted #fff;
+  }
+  .vue-dialog-button{
+    border: 1px dotted #fff;
+    color: #e05c5c;
+    &:hover {
+      background:#191919;
+    }
   }
 }
 </style>
