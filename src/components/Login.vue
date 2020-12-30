@@ -5,7 +5,7 @@
     </div>
     <dir v-else>
       <span>Чтобы сохранить ваши заметки и поделиться ими с друзьями, <button @click="vkLogin" class="vkAuthBtn">авторизуйтесь</button> через сеть ВКонтакте.</span>
-      <!-- <button @click="fbLogin">fbLogin</button> -->
+      <button @click="googleLogin">GoogleLogin</button>
     </dir>
   </div>
 </template>
@@ -13,9 +13,17 @@
 <script>
 import Vue from 'vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 import VKAuth from '@dyadikov/vue-vk-oauth2'
+import GoogleAuth from '../utils/google.js'
 
 Vue.use(VKAuth, {apiId: 7713155})
+Vue.use(GoogleAuth, {
+  clientId: '977537483129-3se0a997m28kn8n2c8qu2qe5sfec10cj.apps.googleusercontent.com',
+  scope   : 'profile email',
+  prompt  : 'select_account'
+});
+
 
 export default {
   name: 'Login',
@@ -34,7 +42,31 @@ export default {
       'setAccessToken',
       'resetTodos'
     ]),
-    fbLogin () {
+    googleLogin () {
+      this.$gAuth
+        .signIn()
+        .then(googleUser => {
+          let profile = googleUser.getBasicProfile();
+          let authResponse = googleUser.getAuthResponse();
+
+          this.addUser({
+            user: {
+              type      : 'google',
+              userId    : profile.getId(),
+              href      : profile.getEmail(),
+              first_name: profile.getGivenName(),
+              last_name : profile.getFamilyName(),
+            },
+            access_token: authResponse.access_token,
+            expire: authResponse.expires_at / 1000,
+          })
+        })
+        .catch(() => {
+          Vue.notify({
+            group: 'auth',
+            title: 'Ошибка авторизации',
+          })
+        })
     },
     vkLogin () {
       this.$vkAuth.login()
@@ -48,10 +80,14 @@ export default {
                 first_name: response.session.user.first_name,
                 last_name : response.session.user.last_name,
               },
-              access_token: response.session.sid
+              access_token: response.session.sid,
+              expire: response.session.expire,
             })
           } else {
-            console.error('ошибка авторизации');
+            Vue.notify({
+              group: 'auth',
+              title: 'Ошибка авторизации',
+            })
           }
         })
     },
@@ -60,8 +96,12 @@ export default {
         this.$vkAuth.logout();
       }
 
+      if (this.user.type == 'google') {
+        this.$gAuth.signOut();
+      }
+
       this.setUser(null);
-      this.setAccessToken('');
+      this.setAccessToken({access_token: ''});
 
       this.resetTodos();
     }

@@ -2,12 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Cookies from 'js-cookie'
 import { format } from 'date-fns'
-import Notifications from 'vue-notification'
 
 import * as Api from '../utils/api.js';
 
 Vue.use(Vuex);
-Vue.use(Notifications)
 
 const initUser = Cookies.get('new_year_2021_user');
 const initAccessToken = Cookies.get('new_year_2021_access_token');
@@ -108,17 +106,30 @@ export const store = new Vuex.Store({
       state.user = user;
       Cookies.set('new_year_2021_user', JSON.stringify(user));
     },
-    setAccessToken: (state, accessToken) => {
-      state.access_token = accessToken;
-      Cookies.set('new_year_2021_access_token', accessToken);
+    setAccessToken: (state, value) => {
+      console.log(value);
+      state.access_token = value.access_token;
+      
+      let cookiesParams = {};
+      if (value.expires > 0) {
+        cookiesParams = {expires: new Date(value.expires * 1000)};
+      }
+
+      Cookies.set('new_year_2021_access_token', value.access_token, cookiesParams);
     },
   },
   actions: {
     addUser ({ commit, dispatch }, params) {
       commit('setLoading', true);
       Api.addUser(params.user).then((result) => {
-        commit('setAccessToken', params.access_token);
         commit('setUser', result);
+        commit(
+          'setAccessToken',
+          {
+            access_token: params.access_token,
+            expires     : params.expire
+          }
+        );
         commit('setLoading', false);
 
         dispatch('getTodos');
