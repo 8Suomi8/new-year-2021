@@ -158,6 +158,7 @@ svg {
   color: #fff;
   font-size: 15px;
   font-family: "Montserrat", sans-serif;
+  padding: 0 20px;
 }
 .text__wrap p {
   line-height: 24px;
