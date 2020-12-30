@@ -53,7 +53,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   &__item{
-    height: 363px;
+    height: 340px;
     width: 32.5%;
     margin-right: 1.2%;
     margin-bottom: 1.2%;

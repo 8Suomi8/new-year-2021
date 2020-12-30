@@ -31,7 +31,8 @@ export default {
   computed: { 
     ...mapGetters([
       'user',
-      'isAuthorized'
+      'isAuthorized',
+      'viewedUserId'
     ]) }
 }
 </script>

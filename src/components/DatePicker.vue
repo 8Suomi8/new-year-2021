@@ -25,7 +25,7 @@ import 'vue2-datepicker/index.css';
 
 export default {
   components: { DatePicker },
-  props: ['showDatePicker', 'toggleDatePicker', 'date', 'setDate', 'not2021', 'closeDatePicker'],
+  props: ['showDatePicker', 'toggleDatePicker', 'date', 'setDate', 'not2021'],
   data() {
     return {
       lang: {

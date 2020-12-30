@@ -15,7 +15,7 @@
         Поделиться: 
         <vue-goodshare-vkontakte
           v-if="user"
-          :page_url="'http://2021.supportix.ru/?userid=' + user.id"
+          :page_url="'https://2021.supportix.ru/?userid=' + user.id"
           title_social=""
           has_icon
         ></vue-goodshare-vkontakte>
@@ -25,6 +25,18 @@
           title_social=""
           has_icon
         ></vue-goodshare-vkontakte>
+        <vue-goodshare-facebook
+          v-if="user"
+          :page_url="'https://2021.supportix.ru/?userid=' + user.id"
+          title_social=""
+          has_icon
+        ></vue-goodshare-facebook>
+        <vue-goodshare-facebook
+          v-if="!user"
+          page_url="http://2021.supportix.ru/"
+          title_social=""
+          has_icon
+        ></vue-goodshare-facebook>
 
     </div>
   </div>
@@ -32,6 +44,7 @@
 <script>
 // import Vue from "vue";
 import VueGoodshareVkontakte from "vue-goodshare/src/providers/Vkontakte.vue";
+import VueGoodshareFacebook from "vue-goodshare/src/providers/Facebook.vue";
 
 
 import {mapGetters, mapMutations} from 'vuex'
@@ -45,7 +58,8 @@ export default {
     }
   },
   components: {
-    VueGoodshareVkontakte
+    VueGoodshareVkontakte,
+    VueGoodshareFacebook
   },
   methods: {
     ...mapMutations([ 'toggleFilterTodos' ]), 
@@ -57,7 +71,8 @@ export default {
       'todosMax',
       'user',
       'isAuthorized',
-      'filterType'
+      'filterType',
+      'viewedUserId'
     ]) }
 
 
@@ -68,6 +83,9 @@ export default {
   margin-left: auto;
 }
 .vkontakte__design__flat{
+  background: transparent;
+}
+.facebook__design__flat{
   background: transparent;
 }
 .header{

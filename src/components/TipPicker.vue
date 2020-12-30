@@ -46,7 +46,7 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #000;
+  background:#191919;
   &__form {
     height: 100%;
     display: flex;
@@ -62,8 +62,8 @@ export default {
     border: none;
   }
   &__header {
-    height: 117px;
-    padding: 35px 35px 15px 35px;
+    height: 102px;
+    padding: 20px 35px 15px 35px;
     display: flex;
     align-items: center;
     margin-bottom: 20px;

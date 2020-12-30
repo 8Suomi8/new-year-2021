@@ -70,7 +70,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     &__content{
-      padding: 35px;
+      padding: 20px 35px;
     }
     &__header{
       display: flex;
@@ -80,6 +80,7 @@ export default {
     &__icon{
       width: 50px;
       height: 50px;
+      min-width: 50px;
     }
     &__icon-wrapper{
       margin-right: 40px;
