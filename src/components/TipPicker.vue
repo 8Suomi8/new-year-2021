@@ -1,4 +1,5 @@
 <template>
+<transition name="fade">
   <div class="tipPicker" v-show="showTipPicker">
     <form class="tipPicker__form">
       <div class="tipPicker__content">
@@ -19,6 +20,7 @@
       </div>
     </form>
   </div>
+</transition>
 </template>
 <script>
 

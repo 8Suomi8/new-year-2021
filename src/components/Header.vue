@@ -86,6 +86,9 @@ export default {
 .facebook__design__flat{
   background: transparent;
 }
+.button-social{
+  padding: 7px 5px;
+}
 .header{
   display: flex;
   align-items: center;

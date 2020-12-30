@@ -1,13 +1,17 @@
 <template>
-  <div class="todo-list">
+  <!-- <div class="todo-list"> -->
+    <transition-group name="list" tag="div" class="todo-list">
     <div v-bind:key="todo.id" v-for="todo in filteredTodoList" class="todo-list__item">
       <Todo v-bind:todo="todo" />
     </div>
-    <div class="todo-list__item todo-list__add-btn" v-if="mode == 'addition' && todosCount < todosMax" @click.self="toggleAddModal">
+    <div v-bind:key="1" class="todo-list__item todo-list__add-btn" v-if="mode == 'addition' && todosCount < todosMax" @click.self="toggleAddModal">
       <img src="../assets/icons/delete.svg" alt="" class="todo-list__add-icon" @click.self="toggleAddModal">
-      <AddTodo v-if="showAddModal" :toggleAddModal="toggleAddModal" :showAddModal="showAddModal"/>
+      <transition name="fade-single">
+        <AddTodo v-if="showAddModal" :toggleAddModal="toggleAddModal" :showAddModal="showAddModal"/>
+      </transition>
     </div>
-  </div>
+  <!-- </div> -->
+    </transition-group>
 </template>
 <script>
 import {mapGetters, mapMutations} from 'vuex';

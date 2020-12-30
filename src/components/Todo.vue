@@ -27,7 +27,9 @@
         </button>
       </div>
     </div>
+    <transition name="fade">
     <AddTodo v-if="showEditModal" :todo="todo" :toggleEditModal="toggleEditModal"/>
+    </transition>
   </div>
 </template>
 <script>

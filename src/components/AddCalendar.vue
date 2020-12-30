@@ -5,8 +5,7 @@
     class="addCalendar"
     @click="addCalendar"
   >
-    <span v-if="isAuthorized">Мой календарь</span>
-    <span v-else>Создать свой календарь</span>
+    Перейти к своему календарю
   </button>
 </div>
 </template>
@@ -28,7 +27,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isAuthorized',
       'mode',
       'user'
     ])
@@ -43,14 +41,10 @@ export default {
     border: 1px dotted #fff;
     color: #e05c5c;
     padding: 15px 40px;
-    
-    outline: none;
-    cursor: pointer;
-  }
-
-  .addCalendar span {
     font-size: 18px;
     font-weight: 700;
+    outline: none;
+    cursor: pointer;
   }
 
   @media(max-width: 758px){
