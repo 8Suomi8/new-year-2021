@@ -8,7 +8,6 @@ function installFbAuthPlugin(Vue, options) {
     fjs.parentNode.insertBefore(js, fjs)
   }(document, 'script', 'facebook-jssdk'))
 
-  console.log('1');
   window.fbAsyncInit = function onSDKInit() {
     window.FB.init(options)
     Vue.FB = window.FB

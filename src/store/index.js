@@ -107,7 +107,6 @@ export const store = new Vuex.Store({
       Cookies.set('new_year_2021_user', JSON.stringify(user));
     },
     setAccessToken: (state, value) => {
-      console.log(value);
       state.access_token = value.access_token;
       
       let cookiesParams = {};
