@@ -1,7 +1,9 @@
 <template>
   <div class="footer">
     <span class="footer__text">© 2021. Все права защищены. </span>
-    <img src="../assets/img/supportix_logo_new.png" alt="" class="footer__logo">
+    <a href="http://supportix.ru/" target="_blank">
+      <img src="../assets/img/supportix-logo-new.svg" alt="" class="footer__logo">
+    </a>
   </div>
 </template>
 <script>
