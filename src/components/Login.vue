@@ -1,12 +1,14 @@
 <template>
   <div class="authWrapper">
-    <div v-if="isAuthorized">
-      <button @click="logout" class="vkAuthBtn">Выйти</button>
+    <div class="congrat__wrapper">
+      <dir v-if="!isAuthorized">
+        <span>Чтобы сохранить ваши заметки и поделиться ими с друзьями, авторизуйтесь через <button @click="vkLogin" class="socialAuthBtn">ВК</button> или <button @click="googleLogin" class="socialAuthBtn">Google</button>.</span>
+      </dir>
     </div>
-    <dir v-else>
-      <span>Чтобы сохранить ваши заметки и поделиться ими с друзьями, <button @click="vkLogin" class="vkAuthBtn">авторизуйтесь</button> через сеть ВКонтакте.</span>
-      <button @click="googleLogin">GoogleLogin</button>
-    </dir>
+    <div v-if="isAuthorized" class="logout">
+      <span>{{user.first_name}} {{user.last_name}}</span>
+      <button @click="logout" class="logoutBtn">Выйти</button>
+    </div>
   </div>
 </template>
   
@@ -109,7 +111,14 @@ export default {
 }
 </script>
 <style lang="scss">
-  .vkAuthBtn{
+  .congrat{
+    &__wrapper{
+      margin: 0 auto;
+      width: 100%;
+      max-width: 500px; 
+    }
+  }
+  .socialAuthBtn{
     color: #e05c5c;
     background: transparent;
     outline: none;
@@ -117,8 +126,22 @@ export default {
     display: inline-block;
     cursor: pointer;
   }
-  .authWrapper{
+  .logout{
+    display: flex;
+    justify-content: flex-end;
+
+  }
+  .logoutBtn{
+    color: #e05c5c;
+    background: transparent;
+    outline: none;
+    border: none;
     display: inline-block;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .authWrapper{
+    // display: inline-block;
     span{
       line-height: 2;
     }

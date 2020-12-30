@@ -1,5 +1,6 @@
 <template>
   <div class="datePicker">
+    <transition name="slide-fade">
     <div class="datePickerWrapper" v-show="showDatePicker">
       <date-picker
         inline
@@ -11,6 +12,7 @@
         @change="this.toggleDatePicker"
       ></date-picker>
     </div>
+    </transition>
     <div @click="this.toggleDatePicker" class="datePicker__date">
       {{ new Date(date).toLocaleDateString('ru', { month: 'long', day: 'numeric' }) }}
       <img src="../assets/icons/calendar.svg" alt="" class="datePicker__icon">

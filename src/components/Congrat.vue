@@ -1,12 +1,13 @@
 <template>
   <div class="congrat">
-    <p class="congrat__name" v-if="isAuthorized"><span>{{user.first_name}} {{user.last_name}}</span></p>
-    <h1 class="congrat__title">Мой календарь</h1>
-    <p class="congrat__year">2021</p>
-    <p class="congrat__text">Перед вами маленький календарик на следующий год. Но это не простой календарь, заносите сюда все ваши мечты, желания и планы, а также знаменательные для вас даты и события.</p>
-    <p class="congrat__text">Не забудьте поделиться вашим календарём с друзьями! <br>
+    <div class="congrat__wrapper">
+      <p class="congrat__name" v-if="isAuthorized"><span>{{user.first_name}} {{user.last_name}}</span></p>
+      <h1 class="congrat__title">Мой календарь</h1>
+      <p class="congrat__year">2021</p>
+      <p class="congrat__text">Перед вами маленький календарик на следующий год. Но это не простой календарь, заносите сюда все ваши мечты, желания и планы, а также знаменательные для вас даты и события.</p>
+      <p class="congrat__text">Не забудьте поделиться вашим календарём с друзьями! </p>
+    </div>
      <Login />
-     </p>
     
 
   </div>
@@ -38,9 +39,12 @@ export default {
 </script>
 <style scoped lang="scss">
   .congrat{
-    width: 100%;
-    max-width: 500px;
-    margin: 50px auto;
+      margin: 50px 0;
+    &__wrapper{
+      margin: 0 auto;
+      width: 100%;
+      max-width: 500px; 
+    }
     &__title{
       font-size: 47px;
       font-weight: 500;

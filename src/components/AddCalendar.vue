@@ -5,7 +5,7 @@
     class="addCalendar"
     @click="addCalendar"
   >
-    Создать свой календарь
+    Перейти к своему календарю
   </button>
 </div>
 </template>
@@ -17,14 +17,14 @@ export default {
   name: 'AddCalendar',
   methods: {
     addCalendar() {
-      if (this.isAuthorized) {
+      // if (this.isAuthorized) {
         window.location.href = window.location.origin;
-      } else {
-        this.$notify({
-          group: 'auth',
-          title: 'Необходима авторизация',
-        })
-      }
+      // } else {
+      //   this.$notify({
+      //     group: 'auth',
+      //     title: 'Необходима авторизация',
+      //   })
+      // }
     }
   },
   computed: {

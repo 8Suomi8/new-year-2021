@@ -1,0 +1,466 @@
+body {
+  margin: 0;
+  background-color: #191919;
+}
+.container {
+  background-color: #191919;
+}
+
+.mauto {
+  margin: auto;
+}
+svg {
+  overflow: visible;
+}
+
+/***********star pop up********/
+
+@-webkit-keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/*************swing************/
+@keyframes swing {
+  0% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(-3deg);
+  }
+}
+/**********flip***************/
+
+@-webkit-keyframes flip-vertical-left {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+@keyframes flip-vertical-left {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+/***********rotate***************/
+
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/*************Supportix css*****************/
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.svg__wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+}
+.left,
+.right {
+  width: 25%;
+  position: relative;
+}
+
+.left {
+  top: -15px;
+}
+.center {
+  width: 50%;
+  position: absolute;
+  left: 25%;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+}
+
+.bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.container {
+  position: relative;
+}
+.main {
+  position: relative;
+}
+.text__wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 86px;
+  transform: translate(-50%, 0);
+  text-align: center;
+  width: 34%;
+  color: #fff;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+}
+.text__wrap p {
+  line-height: 24px;
+  margin: 0;
+}
+
+.bounce__arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  margin-left: -12.5px;
+  animation: bounce ease-in-out 0.5s infinite alternate;
+}
+.bounce__arrow svg {
+  fill: #e05c5c;
+  width: 25px;
+  height: 18px;
+}
+
+#toy_1 {
+  animation: swing ease-in-out 1s infinite alternate;
+  transform-origin: top;
+  transform-box: fill-box;
+}
+#star_inToy_1 {
+  -webkit-animation: rotate-center 3s linear infinite both;
+  animation: rotate-center 3s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#star_inToy_2 {
+  -webkit-animation: rotate-center 2s linear infinite both;
+  animation: rotate-center 2s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#toy_2 {
+  animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: top;
+  transform-box: fill-box;
+}
+#toy_3 {
+  animation: swing ease-in-out 1.5s infinite alternate;
+  transform-origin: top;
+  transform-box: fill-box;
+}
+
+#toy_4 {
+  animation: swing ease-in-out 1s infinite alternate;
+  transform-origin: top;
+  transform-box: fill-box;
+  transform: translateY(0);
+}
+#star_inToy_2 {
+  -webkit-animation: rotate-center 3s linear infinite both;
+  animation: rotate-center 3s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+#single_star {
+  -webkit-animation: blink 1s linear infinite alternate;
+  animation: blink 1s linear infinite alternate;
+}
+#tree_star {
+  -webkit-animation: flip-vertical-left 1.5s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite alternate both;
+  animation: flip-vertical-left 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    infinite alternate both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#star_1 {
+  -webkit-animation: blink 1.3s linear infinite alternate;
+  animation: blink 1.3s linear infinite alternate;
+}
+#star_2 {
+  -webkit-animation: blink 1.7s linear infinite alternate;
+  animation: blink 1.7s linear infinite alternate;
+}
+#star_3 {
+  -webkit-animation: blink 0.7s linear infinite alternate;
+  animation: blink 0.7s linear infinite alternate;
+}
+
+#single_star_1 {
+  -webkit-animation: blink 0.9s linear infinite alternate;
+  animation: blink 0.9s linear infinite alternate;
+}
+#single_star_2 {
+  -webkit-animation: blink 1.1s linear infinite alternate;
+  animation: blink 1.1s linear infinite alternate;
+}
+#single_star_3 {
+  -webkit-animation: blink 1.1s linear infinite alternate;
+  animation: blink 1.1s linear infinite alternate;
+}
+
+#circle_1 {
+  -webkit-animation: rotate-center 3s linear infinite both;
+  animation: rotate-center 3s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#circle_2 {
+  -webkit-animation: rotate-center 2.1s linear infinite both;
+  animation: rotate-center 2.1s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#circle_3 {
+  -webkit-animation: rotate-center 1.7s linear infinite both;
+  animation: rotate-center 1.7s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#circle_star_1 {
+  -webkit-animation: rotate-center 5s linear infinite both;
+  animation: rotate-center 5s linear infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+#support__path {
+  stroke-width: 2px;
+  stroke: #fff;
+  fill: #fff; 
+  stroke-dasharray: 550;
+  stroke-dashoffset: 550;
+}
+
+.ix__path {
+  stroke-width: 5px;
+  stroke: #e05c5c;
+  stroke-dasharray: 270;
+  stroke-dashoffset: 270;
+  fill: #e05c5c;
+}
+.ix__path:nth-child(3) {
+  stroke-dashoffset: 0;
+  fill: #191919;
+  stroke-width: 4px;
+  opacity: 1;
+}
+
+#wire__path {
+  stroke-width: 4px;
+  stroke: #e05c5c; 
+  opacity: 0.2;
+}
+
+#wire circle {
+  fill: #e05c5c;
+  opacity: 0.2;
+}
+
+#wire circle.fadeIn {
+  animation: fadeInWire 0.1s forwards;
+}
+#wire circle.fadeOut {
+  animation: fadeOutWire 0.1s backwards;
+}
+
+@keyframes fadeInWire {
+  to {
+    opacity: 1;
+    fill: #e05c5c;
+  }
+}
+@keyframes fadeOutWire {
+  to {
+    opacity: 0.2;   
+  }
+}
+
+.ny__letter {
+  stroke-dasharray: 1360;
+  stroke-dashoffset: 1360;
+  stroke-width: 2px;
+  stroke: #e05c5c;
+}
+
+#ny-double path {
+  fill: #e05c5c;
+  opacity: 0.2;
+}
+
+.ny__letter.fadeIn {
+  animation: ny_fadeIn 2s forwards;
+}
+.ny__letter.fadeOut {
+  animation: ny_fadeOut 0.5s forwards;
+}
+
+@keyframes ny_fadeIn {
+   to {
+    fill: #e05c5c;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes ny_fadeOut {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 1360;
+  }
+}
+
+@keyframes draw_support {
+  to {
+    stroke-dashoffset: 0;
+    fill: #fff;
+    opacity: 1;
+  }
+}
+
+@keyframes draw_ix {
+  to {
+    stroke-dashoffset: 0;
+    fill: #e05c5c;
+    opacity: 1;
+  }
+}
+@keyframes draw_ix_ {
+  to {
+    stroke-dashoffset: 0;
+    fill: #191919;
+    stroke-width: 6px;
+    opacity: 1;
+  }
+}
+@media (max-width: 1700px) {
+  .text__wrap {
+    width: 54%;
+  }
+  .left {
+    top: -12px;
+  }
+}
+@media (max-width: 1400px) {
+  .text__wrap {
+    width: 54%;
+  }
+  .left {
+    top: -10px;
+  }
+}
+@media (max-width: 1000px) {
+ 
+  .left {
+    top: -9px;
+  }
+}
+@media (max-width: 1115px) {
+  .text__wrap {
+    width: 64%;
+    bottom: 65px;
+  }
+}
+@media (max-width: 982px) {
+  .text__wrap {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 50px;
+  }
+}
+@media (max-width: 800px) {
+  .left {
+    top: -7px;
+  }
+}
+@media (max-width: 588px) {
+  .left {
+    width: 33%;
+  }
+  .right {
+    width: 33%;
+  }
+  .bottom {
+    bottom: 0;
+  }
+  .center {
+    width: 58%;
+    position: absolute;
+    left: 21%;
+    top: 21%;
+  }
+}
+@media (max-width: 500px) {
+  .left {
+    top: -7px;
+  }
+}
+@media (max-width: 400px) {
+  .left {
+    top: -6px;
+  }
+}
+@media (max-width: 400px) {
+  .left {
+    top: -5px;
+  }
+}
