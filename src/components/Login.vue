@@ -19,7 +19,7 @@ import GoogleAuth from '../utils/google.js'
 
 Vue.use(VKAuth, {apiId: 7713155})
 Vue.use(GoogleAuth, {
-  clientId: '977537483129-3se0a997m28kn8n2c8qu2qe5sfec10cj.apps.googleusercontent.com',
+  clientId: '977537483129-c6r9bk04qhmcfebjr9e1jipq959ssu9f.apps.googleusercontent.com',
   scope   : 'profile email',
   prompt  : 'select_account'
 });
